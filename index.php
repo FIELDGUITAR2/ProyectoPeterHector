@@ -8,9 +8,9 @@
     require_once("logica/Admin.php");
     require_once("logica/Propietario.php");
 
-    ?>
-    <!DOCTYPE html>
-    <html>
+?>
+<!DOCTYPE html>
+<html>
 
     <head>
         <title>ViveLaVidaLoca</title>
@@ -20,9 +20,13 @@
     </head>
     <?php
 
-    $paginas_sin_autenticacion = array(
-        "presentacion/Autenticar.php"
-    );
+$paginas_sin_autenticacion = array(
+    "presentacion/inicio.php",
+    "presentacion/InicioPropietarios.php"/*,
+    "presentacion/autenticar.php",
+    "presentacion/noAutorizado.php",*/
+
+);
 
     $paginas_con_autenticacion = array(
         "presentacion/sesionAdmin.php",
