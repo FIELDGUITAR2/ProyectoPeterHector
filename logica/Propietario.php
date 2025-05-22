@@ -19,12 +19,12 @@ class Propietario extends Persona
     }
 
 
-    public function consultar()
+    public function consultar2()
     {
         $conexion = new Conexion();
         $propietarioDAO = new PropietarioDAO($this->id);
         $conexion->abrir();
-        $conexion->ejecutar($propietarioDAO->consultar());
+        $conexion->ejecutar($propietarioDAO->consultar2());
         $propietarios = array();
         while (($datos = $conexion->registro()) != null) {
             $propietario = new Propietario($datos[0], $datos[1], $datos[2], "", $datos[3]);
@@ -33,6 +33,18 @@ class Propietario extends Persona
         $conexion->cerrar();
         return $propietarios;
     }
+
+    public function consultar(){
+        $conexion = new Conexion();
+        $PropietarioDao = new PropietarioDAO($this -> id);
+        $conexion -> abrir();
+        $conexion -> ejecutar($PropietarioDao -> consultar());
+        $datos = $conexion -> registro();
+        $this -> nombre = $datos[1];
+        $this -> apellido = $datos[2];
+        $conexion->cerrar();
+    }
+
 
     public function autenticar()
     {

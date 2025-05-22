@@ -55,10 +55,6 @@ if (isset($_POST["autenticar"])) {
                 <div class="card bg-light bg-opacity-50 shadow p-4 h-100">
                     <div class="card-body d-flex flex-column justify-content-center">
                         <h3 class="mb-4 text-center">Iniciar Sesión</h3>
-
-
-
-                        <div class="card-body">
                             <form action="?pid=<?php echo base64_encode("presentacion/Autenticar.php") ?>" method="post">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" name="nombre" placeholder="nombre" required>
@@ -76,48 +72,7 @@ if (isset($_POST["autenticar"])) {
                             }
                             ?>
                         </div>
-                        <div class="card-header mt-4">
-                            <h4>Admins</h4>
-                        </div>
-                        <div class="card-body">
-                            <?php
-                            $admin = new Admin();
-                            $admins = $admin->consultar();
-                            echo "<table class='table table-striped table-hover'>";
-                            echo "<tr><td>Id</td><td>Nombre</td><td>Apellido</td></tr>";
-                            foreach ($admins as $ad) {
-                                echo "<tr>";
-                                echo "<td>" . $ad->getId() . "</td>";
-                                echo "<td>" . $ad->getNombre() . "</td>";
-                                echo "<td>" . $ad->getApellido() . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</table>";
-                            ?>
-                        </div>
-
-                        <div class="card-header mt-4">
-                            <h4>Propietarios</h4>
-                        </div>
-                        <div class="card-body">
-                            <?php
-                            $propietario = new Propietario();
-                            $propietarios = $propietario->consultar();
-                            echo "<table class='table table-striped table-hover'>";
-                            echo "<tr><td>Id</td><td>Nombre</td><td>Apellido</td><td>Fecha</td></tr>";
-                            foreach ($propietarios as $pro) {
-                                echo "<tr>";
-                                echo "<td>" . $pro->getId() . "</td>";
-                                echo "<td>" . $pro->getNombre() . "</td>";
-                                echo "<td>" . $pro->getApellido() . "</td>";
-                                echo "<td>" . $pro->getFecha() . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</table>";
-                            ?>
-                        </div>
-
-                    </div>
+                    
                 </div>
             </div>
 

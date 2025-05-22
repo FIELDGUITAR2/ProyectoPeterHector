@@ -21,8 +21,16 @@ class AdminDAO
         FROM Admin 
         WHERE nombre = '" . $this->nombre . "' AND clave = '" . $this->clave . "'";
     }
+
     public function consultar()
+    {
+        return "SELECT idAdmin, nombre, apellido FROM Admin
+        where idAdmin = '" . $this -> id . "'";
+    }
+
+    public function consultar2()
     {
         return "SELECT idAdmin, nombre, apellido FROM Admin;";
     }
+
 }

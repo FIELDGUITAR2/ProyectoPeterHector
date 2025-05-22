@@ -9,12 +9,13 @@ class Admin extends Persona {
         parent::__construct($id, $nombre, $apellido, $clave);
     }
     
+ 
     
-    public function consultar(){
+    public function consultar2(){
         $conexion = new Conexion();
         $adminDAO = new AdminDAO();
         $conexion -> abrir();
-        $conexion -> ejecutar($adminDAO -> consultar());
+        $conexion -> ejecutar($adminDAO -> consultar2());
         $admins = array();
         while(($datos = $conexion -> registro()) != null){        
             $admin = new Admin($datos[0], $datos[1], $datos[2]);
@@ -23,6 +24,17 @@ class Admin extends Persona {
         $conexion -> cerrar();
         return $admins;
 
+    }
+
+    public function consultar(){
+        $conexion = new Conexion();
+        $adminDAO = new AdminDAO($this -> id);
+        $conexion -> abrir();
+        $conexion -> ejecutar($adminDAO -> consultar());
+        $datos = $conexion -> registro();
+        $this -> nombre = $datos[1];
+        $this -> apellido = $datos[2];
+        $conexion->cerrar();
     }
 
     public function autenticar()

@@ -25,8 +25,15 @@ class PropietarioDAO
             WHERE nombre = '" . $this->nombre . "' AND clave = '" . $this->clave . "'";
     }
 
-    public function consultar()
+    public function consultar2()
     {
         return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario";
     }
+
+     public function consultar()
+    {
+        return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario
+        where idPropietario = '" . $this -> id . "'";
+    }
 }
+
