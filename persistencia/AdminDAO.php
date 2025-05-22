@@ -5,13 +5,15 @@ class AdminDAO
     private $id;
     private $nombre;
     private $apellido;
+    private $telefono;
     private $clave;
 
-    public function __construct($id = 0, $nombre = "", $apellido = "", $clave = "")
+    public function __construct($id = 0, $nombre = "", $apellido = "",$telefono="", $clave = "")
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
+        $this -> telefono = $telefono;
         $this->clave = $clave;
     }
 

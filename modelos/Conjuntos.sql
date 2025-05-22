@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `Admin` (
   `idAdmin` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
+  `telefono` VARCHAR(20) NOT NULL,
   `clave` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idAdmin`)
 ) ENGINE = InnoDB;
@@ -23,13 +24,14 @@ CREATE TABLE IF NOT EXISTS `Propietario` (
   `idPropietario` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
+  `telefono` VARCHAR(20) NOT NULL,
   `clave` VARCHAR(45) NOT NULL,
   `fechaIngreso` DATE NOT NULL,
   PRIMARY KEY (`idPropietario`)
 ) ENGINE = InnoDB;
 
 -- ============================
--- Crear tabla Area (4 áreas predefinidas)
+-- Crear tabla Area
 -- ============================
 CREATE TABLE IF NOT EXISTS `Area` (
   `idArea` INT NOT NULL AUTO_INCREMENT,
@@ -38,13 +40,13 @@ CREATE TABLE IF NOT EXISTS `Area` (
 ) ENGINE = InnoDB;
 
 -- ============================
--- Crear tabla Apartamento (usa tabla Area)
+-- Crear tabla Apartamento
 -- ============================
 CREATE TABLE IF NOT EXISTS `Apartamento` (
   `idApartamento` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `Area_idArea` INT NOT NULL,
-  `Propietario_idPropietario` INT NOT NULL,
+  `Propietario_idPropietario` INT NULL,
   PRIMARY KEY (`idApartamento`),
   INDEX `fk_Apartamento_Propietario1_idx` (`Propietario_idPropietario` ASC),
   INDEX `fk_Apartamento_Area1_idx` (`Area_idArea` ASC),
@@ -117,44 +119,30 @@ CREATE TABLE IF NOT EXISTS `Pagos` (
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 
--- ============================
--- Insertar datos en Admin
--- ============================
-INSERT INTO Admin (idAdmin, nombre, apellido, clave)
+INSERT INTO Admin (idAdmin, nombre, apellido, telefono, clave)
 VALUES 
-(1001, 'Samir', 'Gonzalez', '123'),
-(1002, 'Cristian', 'Barrera', '456');
+(1001, 'Samir', 'Gonzalez', '3001234567', '123'),
+(1002, 'Cristian', 'Barrera', '3009876543', '456');
 
--- ============================
--- Insertar datos en Propietario
--- ============================
-INSERT INTO Propietario (idPropietario, nombre, apellido, clave, fechaIngreso)
+
+INSERT INTO Propietario (idPropietario, nombre, apellido, telefono, clave, fechaIngreso)
 VALUES
-(1, 'Eduard', 'Quintero', 'clave1', '2022-02-10'),
-(2, 'Andrés Felipe', 'Rodriguez Herrera', 'clave2', '2021-05-20'),
-(3, 'Luisa', 'Parra', 'clave3', '2023-01-15'),
-(4, 'Cristian Daniel', 'Feo Patarroyo', 'clave4', '2020-11-05'),
-(5, 'Daniel', 'Cruz', 'clave5', '2019-09-13'),
-(6, 'Camila', 'Ríos', 'clave6', '2020-03-01'),
-(7, 'Mateo', 'Gómez', 'clave7', '2021-06-21'),
-(8, 'Valentina', 'Martínez', 'clave8', '2022-08-17'),
-(9, 'Sebastián', 'Torres', 'clave9', '2023-03-09'),
-(10, 'Isabela', 'López', 'clave10', '2021-01-01'),
-(11, 'Juan Pablo', 'Ramírez', 'clave11', '2022-09-12'),
-(12, 'Sara', 'Herrera', 'clave12', '2021-04-25'),
-(13, 'Tomás', 'Jiménez', 'clave13', '2023-07-30'),
-(14, 'Laura', 'Mejía', 'clave14', '2020-12-05'),
-(15, 'Emilio', 'Navarro', 'clave15', '2022-11-11');
+(1, 'Eduard', 'Quintero', '3010000001', 'clave1', '2022-02-10'),
+(2, 'Andrés Felipe', 'Rodriguez Herrera', '3010000002', 'clave2', '2021-05-20'),
+(3, 'Luisa', 'Parra', '3010000003', 'clave3', '2023-01-15'),
+(4, 'Cristian Daniel', 'Feo Patarroyo', '3010000004', 'clave4', '2020-11-05'),
+(5, 'Daniel', 'Cruz', '3010000005', 'clave5', '2019-09-13'),
+(6, 'Camila', 'Ríos', '3010000006', 'clave6', '2020-03-01'),
+(7, 'Mateo', 'Gómez', '3010000007', 'clave7', '2021-06-21'),
+(8, 'Valentina', 'Martínez', '3010000008', 'clave8', '2022-08-17'),
+(9, 'Sebastián', 'Torres', '3010000009', 'clave9', '2023-03-09'),
+(10, 'Isabela', 'López', '3010000010', 'clave10', '2021-01-01');
 
--- ============================
--- Insertar áreas disponibles
--- ============================
+
 INSERT INTO Area (metrosCuadrados)
 VALUES (60), (70), (80), (90);
 
--- ============================
--- Insertar apartamentos (usando IDs de área 1–4)
--- ============================
+
 INSERT INTO Apartamento (nombre, Area_idArea, Propietario_idPropietario)
 VALUES
 ('101', 1, 1),
@@ -167,23 +155,24 @@ VALUES
 ('108', 4, 8),
 ('109', 1, 9),
 ('110', 2, 10),
-('111', 3, 11),
-('112', 4, 12),
-('113', 1, 13),
-('114', 2, 14),
-('115', 3, 15);
+('111', 3, 1),   -- Eduard tiene otro apartamento
+('112', 4, 2),   -- Andrés Felipe también
+('113', 1, 3),   -- Luisa también
+('114', 2, NULL), -- vacío
+('115', 3, NULL), -- vacío
+('116', 4, 4),   -- Cristian Daniel tiene otro
+('117', 1, 5),   -- Daniel también
+('118', 2, 6),   -- Camila también
+('119', 3, NULL), -- vacío
+('120', 4, NULL); -- vacío
 
--- ============================
--- Insertar estados de pago
--- ============================
+
 INSERT INTO EstadoPago (valor)
 VALUES
 ('PAGADO'),     -- id = 1
 ('ATRASADO');   -- id = 2
 
--- ============================
--- Insertar cuentas
--- ============================
+
 INSERT INTO Cuenta (fechaLimite, cantidad, saldoAnterior, Admin_idAdmin, Apartamento_idApartamento, EstadoPago_idEstadoPago)
 VALUES
 ('2025-04-30', 250000, 0, 1001, 1, 1),
@@ -202,9 +191,7 @@ VALUES
 ('2025-04-30', 300000, 120000, 1002, 14, 2),
 ('2025-04-30', 260000, 0, 1001, 15, 1);
 
--- ============================
--- Insertar pagos (solo para cuentas con estado PAGADO)
--- ============================
+
 INSERT INTO Pagos (fechaPago, Cuenta_idCuenta)
 VALUES
 ('2025-04-29', 1),
@@ -216,6 +203,3 @@ VALUES
 ('2025-04-29', 11),
 ('2025-04-30', 13),
 ('2025-04-28', 15);
-
--- Reactivar validación de claves foráneas
-SET FOREIGN_KEY_CHECKS=1;

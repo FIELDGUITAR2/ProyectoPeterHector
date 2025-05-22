@@ -4,16 +4,17 @@ if ($_SESSION["rol"] != "admin") {
     header("Location: ?pid=" . base64_encode("presentacion/Autenticar.php"));
 }
 
-
-$id = $_SESSION["id"];
-$admin = new Admin($id);
-$admin->consultar();
-
-
-
 ?>
 
-Admin: <?php echo $admin->getNombre() . " " . $admin->getApellido() ?>
+
+<body>
+<?php 
+include ("presentacion/Extremos/Cabeza.php");
+include ("presentacion/menuAdmin.php");
+include ("presentacion/inicio.php");
+?>
+
+
 
 <div class="card-header mt-4">
     <h4>Admins</h4>
@@ -34,4 +35,12 @@ Admin: <?php echo $admin->getNombre() . " " . $admin->getApellido() ?>
     }
     echo "</table>";
     ?>
-</div>
+</div> 
+
+
+
+
+
+
+</body>
+

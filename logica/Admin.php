@@ -5,8 +5,8 @@ require_once("persistencia/AdminDAO.php");
 
 class Admin extends Persona {
 
-    public function __construct($id = "", $nombre = "", $apellido = "",  $clave = ""){
-        parent::__construct($id, $nombre, $apellido, $clave);
+    public function __construct($id = "", $nombre = "", $apellido = "", $telefono="" , $clave = ""){
+        parent::__construct($id, $nombre, $apellido,$telefono, $clave);
     }
     
  
@@ -40,7 +40,7 @@ class Admin extends Persona {
     public function autenticar()
     {
         $conexion = new Conexion();
-        $adminDAO = new AdminDAO("", $this->nombre,"", $this->clave);
+        $adminDAO = new AdminDAO("", $this->nombre,"","", $this->clave);
         $conexion->abrir();
         $conexion->ejecutar($adminDAO->autenticar());
         if ($conexion->filas() == 1) {

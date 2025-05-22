@@ -5,13 +5,15 @@ abstract class Persona
     protected $id;
     protected $nombre;
     protected $apellido;
+    protected $telefono;
     protected $clave;
 
-    public function __construct($id = "", $nombre = "", $apellido = "", $clave = "")
+    public function __construct($id = "", $nombre = "", $apellido = "",$telefono="" , $clave = "")
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
+        $this ->telefono = $telefono;
         $this->clave = $clave;
     }
 
@@ -28,6 +30,10 @@ abstract class Persona
         return $this->apellido;
     }
 
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
     public function getClave() {
         return $this->clave;
     }
@@ -42,6 +48,10 @@ abstract class Persona
 
     public function setApellido($apellido) {
         $this->apellido = $apellido;
+    }
+
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
     }
 
     public function setClave($clave) {
