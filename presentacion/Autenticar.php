@@ -11,13 +11,13 @@ if (isset($_POST["autenticar"])) {
     $nombre = $_POST["nombre"];
     $clave = $_POST["clave"];
 
-    $admin = new Admin("", $nombre, "", $clave);
+    $admin = new Admin("", $nombre, "","", $clave);
     if ($admin->autenticar()) {
         $_SESSION["id"] = $admin->getId();
         $_SESSION["rol"] = "admin";
         header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
     } else {
-        $propietario = new Propietario("", $nombre, "", $clave);
+        $propietario = new Propietario("", $nombre, "","", $clave);
         if ($propietario->autenticar()) {
             $_SESSION["id"] = $propietario->getId();
             $_SESSION["rol"] = "propietario";

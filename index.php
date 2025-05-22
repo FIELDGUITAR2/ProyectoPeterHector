@@ -50,7 +50,7 @@
             include $pid;
         } else if (in_array($pid, $paginas_con_autenticacion)) {
             if (!isset($_SESSION["id"])) {
-                include "presentacion/autenticar.php";
+                include "presentacion/Autenticar.php";
             } else {
                 include $pid;
             }
