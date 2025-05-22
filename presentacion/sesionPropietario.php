@@ -1,6 +1,6 @@
 <?php
 if ($_SESSION["rol"] != "propietario") {
-    header("Location: ?pid=" . base64_encode("presentacion/Autenticar"));
+    header("Location: ?pid=" . base64_encode("presentacion/Autenticar.php"));
 }
 $id = $_SESSION["id"];
 $propietario = new Propietario($id);
