@@ -22,9 +22,8 @@
 
 $paginas_sin_autenticacion = array(
     "presentacion/inicio.php",
-    "presentacion/InicioPropietarios.php"/*,
-    "presentacion/autenticar.php",
-    "presentacion/noAutorizado.php",*/
+    "presentacion/Autenticar.php",
+    
 
 );
 
