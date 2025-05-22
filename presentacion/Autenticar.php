@@ -1,7 +1,7 @@
 <?php
 
 
-if (isset($_GET["sesion"])) {
+if (isset($_GET["sesion"])){
     if ($_GET["sesion"] == "false") {
         session_destroy();
     }
