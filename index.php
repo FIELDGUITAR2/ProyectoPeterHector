@@ -1,4 +1,8 @@
     <?php
+    ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
     session_start();
 
     require_once("logica/Admin.php");
@@ -22,7 +26,7 @@
 
     $paginas_con_autenticacion = array(
         "presentacion/sesionAdmin.php",
-        "presentacion/sesionPropietario.php",
+        "presentacion/sesionPropietario.php"
     );
 
 
@@ -32,6 +36,7 @@
 
         $pid = base64_decode($_GET["pid"]);
         if (in_array($pid, $paginas_sin_autenticacion)) {
+
             include $pid;
         } else if (in_array($pid, $paginas_con_autenticacion)) {
             if (!isset($_SESSION["id"])) {

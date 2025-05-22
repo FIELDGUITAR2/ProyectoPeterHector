@@ -1,14 +1,12 @@
-
 <?php
 
-if (isset($_GET["sesion"]) && $_GET["sesion"] == "false") {
-    session_destroy();
-    header("Location: index.php");
-    exit();
+
+if (isset($_GET["sesion"])) {
+    if ($_GET["sesion"] == "false") {
+        session_destroy();
+    }
 }
-
 $error = false;
-
 if (isset($_POST["autenticar"])) {
     $nombre = $_POST["nombre"];
     $clave = $_POST["clave"];
@@ -17,29 +15,15 @@ if (isset($_POST["autenticar"])) {
     if ($admin->autenticar()) {
         $_SESSION["id"] = $admin->getId();
         $_SESSION["rol"] = "admin";
-        header("Location: index.php?pid=" . base64_encode("presentacion/sesionAdmin.php"));
-        exit();
-    }
-
-    $propietario = new Propietario("", $nombre, "", $clave);
-    if ($propietario->autenticar()) {
-        $_SESSION["id"] = $propietario->getId();
-        $_SESSION["rol"] = "propietario";
-        header("Location: index.php?pid=" . base64_encode("presentacion/sesionPropietario.php"));
-        exit();
-    }
-
-    $error = true;
-}
-
-if (isset($_GET["pid"])) {
-    $ruta = base64_decode($_GET["pid"]);
-    if (file_exists($ruta)) {
-        include($ruta);
-        exit();
+        header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
     } else {
-        echo "<div class='alert alert-danger'>Error: archivo no encontrado: $ruta</div>";
-        exit();
+        $propietario = new Propietario("", $nombre, "", $clave);
+        if ($propietario->autenticar()) {
+            $_SESSION["id"] = $propietario->getId();
+            $_SESSION["rol"] = "propietario";
+            header("Location: ?pid=" . base64_encode("presentacion/sesionPropietario.php"));
+            $error = true;
+        } 
     }
 }
 ?>
@@ -74,22 +58,24 @@ if (isset($_GET["pid"])) {
 
 
 
-                        <form method="post" action="?pid=<?php echo base64_encode('presentacion/Autenticar.php'); ?>">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="nombre" placeholder="nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" name="clave" placeholder="clave" required>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" name="autenticar" class="btn btn-info">Entrar</button>
-                            </div>
-                        </form>
-
-                        <?php if ($error): ?>
-                            <div class="alert alert-danger text-center mt-3">Usuario o contraseña incorrectos</div>
-                        <?php endif; ?>
-
+                        <div class="card-body">
+                            <form action="?pid=<?php echo base64_encode("presentacion/Autenticar.php") ?>" method="post">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="nombre" placeholder="nombre" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" name="clave" placeholder="Clave" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" name="autenticar" class="btn btn-info">Entrar</button>
+                                </div>
+                            </form>
+                            <?php
+                            if ($error) {
+                                echo "<div class='alert alert-danger mt-3' role='alert'>Credenciales incorrectas</div>";
+                            }
+                            ?>
+                        </div>
                         <div class="card-header mt-4">
                             <h4>Admins</h4>
                         </div>
