@@ -9,6 +9,8 @@
     require_once("logica/Propietario.php");
     require_once("logica/Apartamento.php");
     require_once("logica/Aria.php");
+    require_once("logica/Cuenta.php");
+    require_once("logica/Pago.php");
     ?>
     <!DOCTYPE html>
     <html>
@@ -36,7 +38,8 @@
     $paginas_con_autenticacion = array(
         "presentacion/inicio.php",
         "presentacion/sesionAdmin.php",
-        "presentacion/sesionPropietario.php"
+        "presentacion/sesionPropietario.php",
+        "presentacion/cuenta/crearCuenta.php"
     );
 
 
