@@ -14,9 +14,6 @@ include ("presentacion/inicio.php");
 ?>
 
 
-<?php
-include("presentacion/Extremos/Pie.php");
-?>
 
 
 

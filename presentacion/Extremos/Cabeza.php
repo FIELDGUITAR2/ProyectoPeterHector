@@ -27,8 +27,9 @@
 			</div>
 		</div>
 	</div>
+	<!--
 	<nav class="nav justify-content-center  ">
 		<a class="nav-link active" href="?pid=<?php echo base64_decode("../inicio.php") ?>"
 			aria-current="page">Inicio</a>
 		<a class="nav-link" href="?">Iniciar sesion</a>
-	</nav>
+	</nav> -->

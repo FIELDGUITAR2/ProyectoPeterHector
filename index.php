@@ -41,7 +41,7 @@
 
 
     if (!isset($_GET["pid"])) {
-        include("presentacion/inicio.php");
+        include("presentacion/Autenticar.php");
     } else {
 
         $pid = base64_decode($_GET["pid"]);
