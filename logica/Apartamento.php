@@ -18,7 +18,8 @@ class Apartamento
         $this->propietario = $propietario;
     }
 
-    public function consultarTodos(){
+    public function consultarTodos()
+    {
         $conexion = new Conexion();
         $apartamentoDAO = new ApartamentoDAO();
         $conexion->abrir();
@@ -29,7 +30,8 @@ class Apartamento
             if ($datos[2] !== null) {
                 $propietario = new Propietario($datos[2], $datos[3], $datos[4], $datos[5]);
             }
-            $area = new Area($datos[6], $datos[7]);
+
+            $area = new Area($datos[6], $datos[7], $datos[8]);
             $apartamento = new Apartamento($datos[0], $datos[1], $area, $propietario);
 
             array_push($apartamentos, $apartamento);
@@ -38,27 +40,28 @@ class Apartamento
         return $apartamentos;
     }
 
-    public function consultarPorNombre($nombre){
-    $conexion = new Conexion();
-    $apartamentoDAO = new ApartamentoDAO();
-    $conexion->abrir();
-    $conexion->ejecutar($apartamentoDAO->consultarPorNombre($nombre));
-    $datos = $conexion->registro();
+    public function consultarPorNombre($nombre)
+    {
+        $conexion = new Conexion();
+        $apartamentoDAO = new ApartamentoDAO();
+        $conexion->abrir();
+        $conexion->ejecutar($apartamentoDAO->consultarPorNombre($nombre));
+        $datos = $conexion->registro();
 
-    if ($datos != null) {
-        $propietario = null;
-        if ($datos[2] !== null) {
-            $propietario = new Propietario($datos[2], $datos[3], $datos[4], $datos[5]);
+        if ($datos != null) {
+            $propietario = null;
+            if ($datos[2] !== null) {
+                $propietario = new Propietario($datos[2], $datos[3], $datos[4], $datos[5]);
+            }
+            $area = new Area($datos[6], $datos[7], $datos[8]); 
+            $apartamento = new Apartamento($datos[0], $datos[1], $area, $propietario);
+            $conexion->cerrar();
+            return $apartamento;
         }
-        $area = new Area($datos[6], $datos[7]);
-        $apartamento = new Apartamento($datos[0], $datos[1], $area, $propietario);
-        $conexion->cerrar();
-        return $apartamento;
-    }
 
-    $conexion->cerrar();
-    return null;
-}
+        $conexion->cerrar();
+        return null;
+    }
 
 
 

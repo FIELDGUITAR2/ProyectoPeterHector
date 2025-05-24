@@ -7,9 +7,9 @@
     {
         private $fechaIngreso;
 
-        public function __construct($id = "", $nombre = "", $apellido = "",$telefono="" , $clave = "", $fechaIngreso = "")
+        public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "")
         {
-            parent::__construct($id, $nombre, $apellido,$telefono, $clave);
+            parent::__construct($id, $nombre, $apellido, $telefono, $clave);
             $this->fechaIngreso = $fechaIngreso;
         }
 
@@ -27,21 +27,25 @@
             $conexion->ejecutar($propietarioDAO->consultar2());
             $propietarios = array();
             while (($datos = $conexion->registro()) != null) {
-                $propietario = new Propietario($datos[0], $datos[1], $datos[2], "", $datos[3]);
+                
+                $propietario = new Propietario($datos[0], $datos[1], $datos[2], "", "", $datos[3]);
                 array_push($propietarios, $propietario);
             }
             $conexion->cerrar();
             return $propietarios;
         }
 
-        public function consultar(){
+
+        public function consultar()
+        {
             $conexion = new Conexion();
-            $PropietarioDao = new PropietarioDAO($this -> id);
-            $conexion -> abrir();
-            $conexion -> ejecutar($PropietarioDao -> consultar());
-            $datos = $conexion -> registro();
-            $this -> nombre = $datos[1];
-            $this -> apellido = $datos[2];
+            $PropietarioDao = new PropietarioDAO($this->id);
+            $conexion->abrir();
+            $conexion->ejecutar($PropietarioDao->consultar());
+            $datos = $conexion->registro();
+            $this->nombre = $datos[1];
+            $this->apellido = $datos[2];
+            $this->fechaIngreso = $datos[3]; 
             $conexion->cerrar();
         }
 

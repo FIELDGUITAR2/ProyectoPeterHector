@@ -21,23 +21,25 @@ class ApartamentoDAO
                 WHERE idApartamento = " . $this->id;
     }
 
-    public function consultarTodos(){
-    "SELECT a.idApartamento, a.nombre nombreApartamento,
+    public function consultarTodos()
+    {
+        return "SELECT a.idApartamento, a.nombre nombreApartamento,
        p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
-       ar.idArea, ar.metrosCuadrados
+       ar.idArea, ar.metrosCuadrados, ar.valorArriendo
        FROM Apartamento a
         LEFT JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
         JOIN Area ar ON a.Area_idArea = ar.idArea
         ORDER BY p.apellido, p.nombre;";
     }
 
-    public function consultarPorNombre($nombre){
+    public function consultarPorNombre($nombre)
+    {
         if ($nombre !== null && trim($nombre) !== "") {
             $nombreEscapado = addslashes($nombre);
 
             $sentencia = "SELECT a.idApartamento, a.nombre nombreApartamento,
        p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
-       ar.idArea, ar.metrosCuadrados
+       ar.idArea, ar.metrosCuadrados, ar.valorArriendo
        FROM Apartamento a
         LEFT JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
         JOIN Area ar ON a.Area_idArea = ar.idArea

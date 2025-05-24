@@ -46,9 +46,28 @@ class Cuenta
         $conexion = new Conexion();
         $cuentaDAO = new CuentaDAO($this->id, $this->fechaLimite, $this->cantidad, $this->saldoAnterior, $this->idAdmin, $this->idApartamento, $this->idEstadoPago);
         $conexion->abrir();
-        $conexion->ejecutar($cuentaDAO->insertar());
+
+        $resultado = $conexion->ejecutar($cuentaDAO->insertar());
+
         $conexion->cerrar();
+
+        return $resultado;
     }
+
+    public function actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior)
+    {
+        $conexion = new Conexion();
+        $cuentaDAO = new CuentaDAO();  // no necesitas pasarle datos si solo vas a usar el método de actualización
+        $conexion->abrir();
+
+        $resultado = $conexion->ejecutar($cuentaDAO->actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior));
+
+        $conexion->cerrar();
+
+        return $resultado;
+    }
+
+
 
     public function consultarPorApartamento($idApartamento)
     {
@@ -56,9 +75,7 @@ class Cuenta
         $conexion->abrir();
 
         $cuentaDAO = new CuentaDAO("", "", 0, 0, "", $idApartamento, "");
-        $sql = $cuentaDAO->consultarPorApartamento();
-
-        $conexion->ejecutar($cuentaDAO ->consultarPorApartamento());
+        $conexion->ejecutar($cuentaDAO->consultarPorApartamento());
         $datos = $conexion->registro();
 
         if ($datos) {
@@ -78,6 +95,27 @@ class Cuenta
             return null;
         }
     }
+
+    public function existeCuentaEnFecha($idApartamento, $fecha)
+    {
+        $anio = date('Y', strtotime($fecha));
+        $mes = date('m', strtotime($fecha));
+
+        $conexion = new Conexion();
+        $conexion->abrir();
+
+        $cuentaDAO = new CuentaDAO();
+        $sql = $cuentaDAO->existeCuentaEnFecha($idApartamento, $anio, $mes);
+
+        $conexion->ejecutar($sql);
+        $registro = $conexion->registro();
+
+        $conexion->cerrar();
+
+        return $registro[0] > 0;
+    }
+
+
 
 
     public function getId()

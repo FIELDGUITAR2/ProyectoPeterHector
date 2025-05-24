@@ -36,8 +36,10 @@ CREATE TABLE IF NOT EXISTS `Propietario` (
 CREATE TABLE IF NOT EXISTS `Area` (
   `idArea` INT NOT NULL AUTO_INCREMENT,
   `metrosCuadrados` DOUBLE NOT NULL,
+  `valorArriendo` INT NOT NULL,
   PRIMARY KEY (`idArea`)
 ) ENGINE = InnoDB;
+
 
 -- ============================
 -- Crear tabla Apartamento
@@ -139,8 +141,13 @@ VALUES
 (10, 'Isabela', 'López', '3010000010', 'clave10', '2021-01-01');
 
 
-INSERT INTO Area (metrosCuadrados)
-VALUES (60), (70), (80), (90);
+INSERT INTO Area (metrosCuadrados, valorArriendo)
+VALUES 
+  (60, 500000),
+  (70, 600000),
+  (80, 700000),
+  (90, 800000);
+
 
 
 INSERT INTO Apartamento (nombre, Area_idArea, Propietario_idPropietario)
@@ -150,21 +157,21 @@ VALUES
 ('103', 3, 3),
 ('104', 4, 4),
 ('105', 1, 5),
-('106', 2, 6),
-('107', 3, 7),
-('108', 4, 8),
-('109', 1, 9),
-('110', 2, 10),
-('111', 3, 1),   -- Eduard tiene otro apartamento
-('112', 4, 2),   -- Andrés Felipe también
-('113', 1, 3),   -- Luisa también
-('114', 2, NULL), -- vacío
-('115', 3, NULL), -- vacío
-('116', 4, 4),   -- Cristian Daniel tiene otro
-('117', 1, 5),   -- Daniel también
-('118', 2, 6),   -- Camila también
-('119', 3, NULL), -- vacío
-('120', 4, NULL); -- vacío
+('201', 2, 6),
+('202', 3, 7),
+('203', 4, 8),
+('204', 1, 9),
+('205', 2, 10),
+('106', 3, 1),   -- Eduard tiene otro apartamento
+('207', 4, 2),   -- Andrés Felipe también
+('107', 1, 3),   -- Luisa también
+('108', 2, NULL), -- vacío
+('208', 3, NULL), -- vacío
+('206', 4, 4),   -- Cristian Daniel tiene otro
+('209', 1, 5),   -- Daniel también
+('109', 2, 6),   -- Camila también
+('110', 3, NULL), -- vacío
+('210', 4, NULL); -- vacío
 
 
 INSERT INTO EstadoPago (valor)
@@ -203,3 +210,9 @@ VALUES
 ('2025-04-29', 11),
 ('2025-04-30', 13),
 ('2025-04-28', 15);
+
+INSERT INTO EstadoPago (valor)
+VALUES ('PENDIENTE'); -- id = 3
+
+
+DELETE FROM Cuenta WHERE idCuenta >= 16;
