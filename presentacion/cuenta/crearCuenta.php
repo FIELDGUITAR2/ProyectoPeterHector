@@ -20,8 +20,6 @@ function calcularFechaLimite($fechaIngreso) {
     return $fechaActual->format('Y-m-d');
 }
 
-
-
 if (isset($_POST["registrarCuenta"])) {
     $fechaLimite = $_POST["fechaLimite"];
     $cantidad = floatval($_POST["cantidad"]);

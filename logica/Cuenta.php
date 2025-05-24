@@ -11,6 +11,7 @@ class Cuenta
     private $idAdmin;
     private $idApartamento;
     private $idEstadoPago;
+    private $datos;
 
     public function __construct($id = "", $fechaLimite = "", $cantidad = 0.0, $saldoAnterior = 0.0, $idAdmin = "", $idApartamento = "", $idEstadoPago = "")
     {
@@ -29,14 +30,14 @@ class Cuenta
         $cuentaDAO = new CuentaDAO($this->id);
         $conexion->abrir();
         $conexion->ejecutar($cuentaDAO->consultar());
-        $datos = $conexion->registro();
-        if ($datos != null) {
-            $this->fechaLimite = $datos[1];
-            $this->cantidad = $datos[2];
-            $this->saldoAnterior = $datos[3];
-            $this->idAdmin = $datos[4];
-            $this->idApartamento = $datos[5];
-            $this->idEstadoPago = $datos[6];
+        $this->datos = $conexion->registro();
+        if ($this->datos != null) {
+            $this->fechaLimite = $this->datos[1];
+            $this->cantidad = $this->datos[2];
+            $this->saldoAnterior = $this->datos[3];
+            $this->idAdmin = $this->datos[4];
+            $this->idApartamento = $this->datos[5];
+            $this->idEstadoPago = $this->datos[6];
         }
         $conexion->cerrar();
     }
@@ -46,9 +47,9 @@ class Cuenta
         $conexion = new Conexion();
         $cuentaDAO = new CuentaDAO($this->id, $this->fechaLimite, $this->cantidad, $this->saldoAnterior, $this->idAdmin, $this->idApartamento, $this->idEstadoPago);
         $conexion->abrir();
-
-        $resultado = $conexion->ejecutar($cuentaDAO->insertar());
-
+        $respuesta = $cuentaDAO->insertar();
+        $conexion->ejecutar($respuesta);
+        $resultado = $conexion->filas();
         $conexion->cerrar();
 
         return $resultado;
@@ -60,8 +61,8 @@ class Cuenta
         $cuentaDAO = new CuentaDAO();  // no necesitas pasarle datos si solo vas a usar el método de actualización
         $conexion->abrir();
 
-        $resultado = $conexion->ejecutar($cuentaDAO->actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior));
-
+        $conexion->ejecutar($cuentaDAO->actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior));
+        $resultado = $conexion->filas();
         $conexion->cerrar();
 
         return $resultado;
@@ -145,5 +146,25 @@ class Cuenta
     public function getIdEstadoPago()
     {
         return $this->idEstadoPago;
+    }
+
+    /**
+     * Get the value of datos
+     */ 
+    public function getDatos()
+    {
+        return $this->datos;
+    }
+
+    /**
+     * Set the value of datos
+     *
+     * @return  self
+     */ 
+    public function setDatos($datos)
+    {
+        $this->datos = $datos;
+
+        return $this;
     }
 }

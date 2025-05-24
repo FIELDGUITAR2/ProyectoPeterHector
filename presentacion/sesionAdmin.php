@@ -4,17 +4,12 @@ if ($_SESSION["rol"] != "admin") {
 }
 ?>
 
-
 <body>
 <?php 
 include ("presentacion/Extremos/Cabeza.php");
 include ("presentacion/menuAdmin.php");
 include ("presentacion/inicio.php");
 ?>
-
-
-
-
 
 </body>
 

@@ -17,16 +17,13 @@ $admin -> consultar();
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active" aria-current="page"
 						href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 						href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false"> Cuentas </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/consultar.php")?>">Consultar</a></li>
+							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/ConsultarCuentas.php")?>">Consultar</a></li>
 							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/crearCuenta.php")?>">Crear</a></li>
 						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
 				</ul>
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"

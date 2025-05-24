@@ -29,6 +29,6 @@
 	</div>
 	<!--
 	<nav class="nav justify-content-center  ">
-		<a class="nav-link active" href="?pid=<?php echo base64_encode("../inicio.php") ?>" aria-current="page">Inicio</a>
+		<a class="nav-link active" href="?pid=<?php echo base64_encode("presentacion/inicio.php") ?>" aria-current="page">Inicio</a>
 		<a class="nav-link" href="?">Iniciar sesion</a>
 	</nav> -->
