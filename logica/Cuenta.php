@@ -11,7 +11,7 @@ class Cuenta
     private $idAdmin;
     private $idApartamento;
     private $idEstadoPago;
-    private $datos;
+    private $CuentasLista;
 
     public function __construct($id = "", $fechaLimite = "", $cantidad = 0.0, $saldoAnterior = 0.0, $idAdmin = "", $idApartamento = "", $idEstadoPago = "")
     {
@@ -30,14 +30,16 @@ class Cuenta
         $cuentaDAO = new CuentaDAO($this->id);
         $conexion->abrir();
         $conexion->ejecutar($cuentaDAO->consultar());
-        $this->datos = $conexion->registro();
-        if ($this->datos != null) {
-            $this->fechaLimite = $this->datos[1];
-            $this->cantidad = $this->datos[2];
-            $this->saldoAnterior = $this->datos[3];
-            $this->idAdmin = $this->datos[4];
-            $this->idApartamento = $this->datos[5];
-            $this->idEstadoPago = $this->datos[6];
+        $this->CuentasLista = array();
+        if ($datos = $conexion->registro() != null) {
+            $datosCuenta = new Cuenta($this->id, 
+            $this->$datos[1], 
+            $this->$datos[2], 
+            $this->$datos[3], 
+            $this->$datos[4], 
+            $this->$datos[5], 
+            $this->$datos[6]);
+            array_push($CuentasLista,$datosCuenta);
         }
         $conexion->cerrar();
     }
@@ -149,21 +151,21 @@ class Cuenta
     }
 
     /**
-     * Get the value of datos
+     * Get the value of CuentasLista
      */ 
-    public function getDatos()
+    public function getCuentasLista()
     {
-        return $this->datos;
+        return $this->CuentasLista;
     }
 
     /**
-     * Set the value of datos
+     * Set the value of CuentasLista
      *
      * @return  self
      */ 
-    public function setDatos($datos)
+    public function setCuentasLista($CuentasLista)
     {
-        $this->datos = $datos;
+        $this->CuentasLista = $CuentasLista;
 
         return $this;
     }
