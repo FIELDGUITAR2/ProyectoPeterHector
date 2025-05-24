@@ -57,7 +57,7 @@ class Cuenta
     public function actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior)
     {
         $conexion = new Conexion();
-        $cuentaDAO = new CuentaDAO();  // no necesitas pasarle datos si solo vas a usar el método de actualización
+        $cuentaDAO = new CuentaDAO();
         $conexion->abrir();
 
         $resultado = $conexion->ejecutar($cuentaDAO->actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior));
@@ -66,7 +66,6 @@ class Cuenta
 
         return $resultado;
     }
-
 
 
     public function consultarPorApartamento($idApartamento)

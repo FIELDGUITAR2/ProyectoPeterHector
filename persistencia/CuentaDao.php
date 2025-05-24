@@ -47,21 +47,23 @@ class CuentaDAO
             ORDER BY fechaLimite DESC LIMIT 1";
     }
 
-   public function existeCuentaEnFecha($idApartamento, $anio, $mes){
-    $idApartamento = intval($idApartamento);
-    $anio = intval($anio);
-    $mes = intval($mes);
+    public function existeCuentaEnFecha($idApartamento, $anio, $mes)
+    {
+        $idApartamento = intval($idApartamento);
+        $anio = intval($anio);
+        $mes = intval($mes);
 
-    return "SELECT COUNT(*) AS cuentaExiste FROM Cuenta 
+        return "SELECT COUNT(*) AS cuentaExiste FROM Cuenta 
             WHERE Apartamento_idApartamento = $idApartamento
             AND YEAR(fechaLimite) = $anio
             AND MONTH(fechaLimite) = $mes";
-}
+    }
 
 
-public function actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior){
-    return "UPDATE Cuenta SET saldoAnterior = '$saldoAnterior' WHERE idCuenta = '$idCuentaAnterior';";
-}
+    public function actualizarSaldoAnterior($idCuentaAnterior, $saldoAnterior)
+    {
+        return "UPDATE Cuenta SET saldoAnterior = '$saldoAnterior' WHERE idCuenta = '$idCuentaAnterior';";
+    }
 
-
+    
 }
