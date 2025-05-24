@@ -39,7 +39,8 @@
         "presentacion/inicio.php",
         "presentacion/sesionAdmin.php",
         "presentacion/sesionPropietario.php",
-        "presentacion/cuenta/crearCuenta.php"
+        "presentacion/cuenta/crearCuenta.php",
+        "presentacion/usuario/editarUsuario.php"
     );
 
 

@@ -27,7 +27,7 @@
             $conexion->ejecutar($propietarioDAO->consultar2());
             $propietarios = array();
             while (($datos = $conexion->registro()) != null) {
-                
+
                 $propietario = new Propietario($datos[0], $datos[1], $datos[2], "", "", $datos[3]);
                 array_push($propietarios, $propietario);
             }
@@ -39,15 +39,20 @@
         public function consultar()
         {
             $conexion = new Conexion();
-            $PropietarioDao = new PropietarioDAO($this->id);
+            $propietarioDAO = new PropietarioDAO($this->id);
             $conexion->abrir();
-            $conexion->ejecutar($PropietarioDao->consultar());
+            $conexion->ejecutar($propietarioDAO->consultar());
             $datos = $conexion->registro();
-            $this->nombre = $datos[1];
-            $this->apellido = $datos[2];
-            $this->fechaIngreso = $datos[3]; 
+            if ($datos) {
+                $this->nombre = $datos[1];
+                $this->apellido = $datos[2];
+                $this->telefono = $datos[3];
+                $this->clave = $datos[4];
+                $this->fechaIngreso = $datos[5];
+            }
             $conexion->cerrar();
         }
+
 
 
         public function autenticar()
@@ -64,5 +69,16 @@
                 $conexion->cerrar();
                 return false;
             }
+        }
+
+
+        public function actualizar()
+        {
+            $conexion = new Conexion();
+            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
+            $conexion->abrir();
+            $resultado = $conexion->ejecutar($propietarioDAO->actualizar());
+            $conexion->cerrar();
+            return $resultado;
         }
     }

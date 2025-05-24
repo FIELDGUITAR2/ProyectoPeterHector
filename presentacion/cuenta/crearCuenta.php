@@ -1,6 +1,6 @@
 <?php
 $rol = $_SESSION["rol"];
-$id = $_SESSION["id"]; 
+$id = $_SESSION["id"];
 $datosApartamento = null;
 $cuentaAnterior = null;
 $nombreBuscado = "";
@@ -111,39 +111,41 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                     <hr>
                     <h5>Detalles del Apartamento</h5>
                     <form method="post" action="">
-                        <div class="mb-3">
-                            <label class="form-label">Número Apartamento:</label>
-                            <input type="text" class="form-control" value="<?php echo $datosApartamento->getNombre(); ?>" readonly>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Número Apartamento:</label>
+                                <input type="text" class="form-control" value="<?php echo $datosApartamento->getNombre(); ?>" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Propietario:</label>
-                            <input type="text" class="form-control"
-                                value="<?php echo $datosApartamento->getPropietario() !== null ? $datosApartamento->getPropietario()->getNombre() . ' ' . $datosApartamento->getPropietario()->getApellido() : 'Sin asignar'; ?>" readonly>
-                        </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Propietario:</label>
+                                <input type="text" class="form-control"
+                                    value="<?php echo $datosApartamento->getPropietario() !== null ? $datosApartamento->getPropietario()->getNombre() . ' ' . $datosApartamento->getPropietario()->getApellido() : 'Sin asignar'; ?>" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Saldo Anterior:</label>
-                            <input type="text" class="form-control"
-                                value="<?php echo $cuentaAnterior !== null ? '$' . number_format($cuentaAnterior->getSaldoAnterior(), 0, ',', '.') : '0'; ?>" readonly>
-                        </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Saldo Anterior:</label>
+                                <input type="text" class="form-control"
+                                    value="<?php echo $cuentaAnterior !== null ? '$' . number_format($cuentaAnterior->getSaldoAnterior(), 0, ',', '.') : '0'; ?>" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Cuota Administración:</label>
-                            <input type="text" class="form-control"
-                                value="<?php echo '$' . number_format($cuotaAdministracion, 0, ',', '.'); ?>" readonly>
-                        </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Cuota Administración:</label>
+                                <input type="text" class="form-control"
+                                    value="<?php echo '$' . number_format($cuotaAdministracion, 0, ',', '.'); ?>" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Fecha Límite de Pago:</label>
-                            <input type="text" class="form-control"
-                                value="<?php echo date("d/m/Y", strtotime($fechaLimite)); ?>" readonly>
-                        </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Fecha Límite de Pago:</label>
+                                <input type="text" class="form-control"
+                                    value="<?php echo date("d/m/Y", strtotime($fechaLimite)); ?>" readonly>
+                            </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Cantidad a Pagar:</label>
-                            <input type="text" class="form-control"
-                                value="<?php echo '$' . number_format($cantidadAPagar, 0, ',', '.'); ?>" readonly>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Cantidad a Pagar:</label>
+                                <input type="text" class="form-control"
+                                    value="<?php echo '$' . number_format($cantidadAPagar, 0, ',', '.'); ?>" readonly>
+                            </div>
                         </div>
 
                         <!-- Campos ocultos para insertar -->
@@ -170,13 +172,13 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                             </div>
                         <?php endif; ?>
 
-
                         <?php if (isset($mensajeError)): ?>
                             <div class="alert alert-danger mt-3">
                                 <?php echo $mensajeError; ?>
                             </div>
                         <?php endif; ?>
                     </form>
+
                 <?php elseif (!empty($nombreBuscado)): ?>
                     <div class="alert alert-warning mt-3">No se encontró ningún apartamento con ese nombre.</div>
                 <?php endif; ?>

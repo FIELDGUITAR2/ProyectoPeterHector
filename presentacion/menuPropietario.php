@@ -29,7 +29,7 @@ $propietario->consultar();
 						href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false"> Propietario: <?php echo $propietario->getNombre() . " " . $propietario->getApellido() ?> </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Editar Perfil</a></li>
+								<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/editarUsuario.php")?>">Editar Perfil</a></li>
 							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/Autenticar.php")?>&sesion=false">Cerrar Sesion</a></li>
 						</ul></li>
 				</ul>
