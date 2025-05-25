@@ -18,25 +18,21 @@ $propietario->consultar();
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Home</a>
+						<a class="nav-link active" aria-current="page" href="?pid=<?php echo base64_encode("presentacion/sesionPropietario.php"); ?>">Home</a>
 					</li>
 
 					<li class="nav-item">
 						<a class="nav-link" href="#">Link</a>
 					</li>
-
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">Pago</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a class="dropdown-item"
-									href="?pid=<?php echo base64_encode("presentacion/pagar_propietario.php") ?>">
-									Realizar Pago
-								</a>
-							</li>
-						</ul>
+					<li class="nav-item">
+    					<a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/cuentasPropietario/pagar_propietario.php"); ?>">Pagar Cuentas</a>
 					</li>
+					
+					<li class="nav-item">
+    					<a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/CuentasPropietario/consultarCuentas.php"); ?>">Cuentas</a>
+					</li>
+
+					
 
 					<li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Disabled</a>

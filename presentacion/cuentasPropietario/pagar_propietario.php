@@ -5,7 +5,9 @@ require_once("logica/Cuenta.php");
 require_once("persistencia/CuentaDAO.php");
 require_once("persistencia/Conexion.php");
 include ("presentacion/Extremos/Cabeza.php");
-include ("presentacion/Extremos/pie.php");
+include ("presentacion/menuPropietario.php");
+
+
 $idPropietario = $_SESSION["id"];
 $propietario = new Propietario($idPropietario);
 $propietario->consultar();
