@@ -40,7 +40,8 @@
         "presentacion/sesionAdmin.php",
         "presentacion/sesionPropietario.php",
         "presentacion/cuenta/crearCuenta.php",
-        "presentacion/usuario/editarUsuario.php"
+        "presentacion/usuario/editarUsuario.php",
+        "presentacion/cuenta/ConsultarCuentas.php"
     );
 
 

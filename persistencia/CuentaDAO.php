@@ -27,15 +27,8 @@ class CuentaDAO
 
     public function insertar()
     {
-        return "INSERT INTO Cuenta (fechaLimite, cantidad, saldoAnterior, Admin_idAdmin, Apartamento_idApartamento, EstadoPago_idEstadoPago)
-            VALUES (
-                '" . $this->fechaLimite . "',
-                " . $this->cantidad . ",
-                " . $this->saldoAnterior . ",
-                " . $this->idAdmin . ",
-                " . $this->idApartamento . ",
-                " . $this->idEstadoPago . "
-            )";
+        return "insert into Cuenta (fechaLimite, cantidad, saldoAnterior, Admin_idAdmin, Apartamento_idApartamento, EstadoPago_idEstadoPago)
+            values ('$this->fechaLimite',$this->cantidad,$this->saldoAnterior,$this->idAdmin,$this->idApartamento,$this->idEstadoPago)";
     }
 
 
@@ -65,5 +58,9 @@ class CuentaDAO
         return "UPDATE Cuenta SET saldoAnterior = '$saldoAnterior' WHERE idCuenta = '$idCuentaAnterior';";
     }
 
+<<<<<<< HEAD:persistencia/CuentaDao.php
     
+=======
+
+>>>>>>> f82b06917c69fab4e1a3e39d68207f7da67d6373:persistencia/CuentaDAO.php
 }

@@ -16,20 +16,20 @@ class ApartamentoDAO
 
     public function consultar()
     {
-        return "SELECT idApartamento, nombre, Area_idArea, Propietario_idPropietario 
-                FROM Apartamento 
-                WHERE idApartamento = " . $this->id;
+        return "select idApartamento, nombre, Area_idArea, Propietario_idPropietario 
+        from Apartamento 
+        where idApartamento = $this->id";
     }
 
     public function consultarTodos()
     {
-        return "SELECT a.idApartamento, a.nombre nombreApartamento,
-       p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
-       ar.idArea, ar.metrosCuadrados, ar.valorArriendo
-       FROM Apartamento a
-        LEFT JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
-        JOIN Area ar ON a.Area_idArea = ar.idArea
-        ORDER BY p.apellido, p.nombre;";
+        return "select a.idApartamento, a.nombre nombreApartamento,
+        p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
+        ar.idArea, ar.metrosCuadrados, ar.valorArriendo
+        from Apartamento a
+        left join Propietario p on a.Propietario_idPropietario = p.idPropietario
+        join Area ar on a.Area_idArea = ar.idArea
+        order by p.apellido, p.nombre;";
     }
 
     public function consultarPorNombre($nombre)
@@ -37,13 +37,14 @@ class ApartamentoDAO
         if ($nombre !== null && trim($nombre) !== "") {
             $nombreEscapado = addslashes($nombre);
 
-            $sentencia = "SELECT a.idApartamento, a.nombre nombreApartamento,
-       p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
-       ar.idArea, ar.metrosCuadrados, ar.valorArriendo
-       FROM Apartamento a
-        LEFT JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
-        JOIN Area ar ON a.Area_idArea = ar.idArea
-                      WHERE a.nombre = '" . $nombreEscapado . "'";
+            $sentencia = "select a.idApartamento, a.nombre nombreApartamento,
+            p.idPropietario, p.nombre nombrePropietario, p.apellido apellidoPropietario, p.telefono,
+            ar.idArea, ar.metrosCuadrados, ar.valorArriendo
+            from Apartamento a
+            left join Propietario p on a.Propietario_idPropietario = p.idPropietario
+            join Area ar ON a.Area_idArea = ar.idArea
+            WHERE a.nombre = '$nombreEscapado'";
+
             return $sentencia;
         } else {
             return null;
