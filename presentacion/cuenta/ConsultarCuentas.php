@@ -22,7 +22,7 @@ $rol = $_SESSION["rol"];
                    <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 150px;">
                     <?php
                         $cuenta = new Cuenta();
-        				$cuenta -> consultarCuentas();
+        				$cuenta -> consultarCuentas("");
                         $cuentas = $cuenta->getCuentasLista();
         				echo "<table class='table table-striped table-hover'>";
         				echo "
@@ -34,6 +34,7 @@ $rol = $_SESSION["rol"];
                         <td>Nombre</td>
                         <td>Apellido</td>
                         <td>Telefono</td>
+                        <td>Estado_Pago</td>
                         </tr>";
         				foreach($cuentas as $cute){
         				    echo "<tr>";
@@ -44,6 +45,7 @@ $rol = $_SESSION["rol"];
         				    echo "<td>" . $cute -> getIdApartamento() -> getPropietario() -> getNombre() . "</td>";
                             echo "<td>" . $cute -> getIdApartamento() -> getPropietario() -> getApellido() . "</td>";
                             echo "<td>" . $cute -> getIdApartamento() -> getPropietario() -> getTelefono() . "</td>";
+                            echo "<td>" . $cute -> getIdEstadoPago() -> getNombre() . "</td>";
         				    echo "</tr>";
         				}
         				echo "</table>";

@@ -1,6 +1,7 @@
 <?php
 require_once("persistencia/Conexion.php");
 require_once("persistencia/CuentaDAO.php");
+require_once("Estado.php");
 
 class Cuenta
 {
@@ -46,21 +47,33 @@ class Cuenta
         $conexion->cerrar();
     }
 
-    public function consultarCuentas()
+    public function consultarCuentas($idPropietario)
     {
         $conexion = new Conexion();
         $cuenta_DAO = new CuentaDAO();
         $conexion->abrir();
-        $conexion->ejecutar($cuenta_DAO->MostrarTodos());
+        if($idPropietario != null || $idPropietario == ""){
+            $conexion->ejecutar($cuenta_DAO->MostrarTodos(""));
+        }else{
+            $conexion->ejecutar($cuenta_DAO->MostrarTodos($idPropietario));
+        }
+        
         $this->CuentasLista = array();
 
         while (($datos = $conexion->registro()) != null) {
             $Prop = new Propietario($datos[3], $datos[4], $datos[5], $datos[6]);
             $Apart = new Apartamento($datos[1], $datos[2], 0, $Prop);
-            $Cue = new Cuenta($datos[0], 0, 0, 0, 0, $Apart);
+            $Est = new Estado($datos[7], $datos[8]);
+            $Cue = new Cuenta($datos[0], 
+            0, 
+            0, 
+            0,
+            0, 
+            $Apart,
+            $Est);
 
             // Cambiar esta línea:
-            array_push($this->CuentasLista, $Cue); // ✅
+            array_push($this->CuentasLista, $Cue);
         }
 
         $conexion->cerrar();
@@ -171,14 +184,7 @@ class Cuenta
         return $this->idEstadoPago;
     }
 
-    /**
-     * Get the value of CuentasLista
-     */
-    public function getCuentasLista()
-    {
-        return $this->CuentasLista;
-    }
-
+    
     /**
      * Set the value of CuentasLista
      *
@@ -189,5 +195,13 @@ class Cuenta
         $this->CuentasLista = $CuentasLista;
 
         return $this;
+    }
+
+    /**
+     * Get the value of CuentasLista
+     */ 
+    public function getCuentasLista()
+    {
+        return $this->CuentasLista;
     }
 }

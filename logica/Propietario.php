@@ -78,7 +78,8 @@
             $conexion = new Conexion();
             $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
             $conexion->abrir();
-            $resultado = $conexion->ejecutar($propietarioDAO->actualizar());
+            $conexion->ejecutar($propietarioDAO->actualizar());
+            $resultado = $conexion->getResultado();
             $conexion->cerrar();
             return $resultado;
         }

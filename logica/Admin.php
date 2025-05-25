@@ -67,7 +67,8 @@ class Admin extends Persona
         $conexion = new Conexion();
         $adminDAO = new AdminDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave);
         $conexion->abrir();
-        $resultado = $conexion->ejecutar($adminDAO->actualizar());
+        $conexion->ejecutar($adminDAO->actualizar());
+        $resultado = $conexion -> getResultado();
         $conexion->cerrar();
         return $resultado; 
     }
