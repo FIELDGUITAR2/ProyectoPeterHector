@@ -29,7 +29,7 @@ class CuentaDAO
         from Cuenta c 
         join Apartamento a on c.Apartamento_idApartamento = a.idApartamento 
         join Propietario p on a.Propietario_idPropietario = p.idPropietario 
-        ORDER by idCuenta; ";  
+        ORDER by idCuenta";  
         return $Consulta;      
     }
     public function consultar()

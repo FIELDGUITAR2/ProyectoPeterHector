@@ -31,7 +31,7 @@ class Cuenta
         $conexion->abrir();
         $conexion->ejecutar($cuentaDAO->consultar());
         $this->CuentasLista = array();
-        while ($datos = $conexion->registro() != null) {
+        while (($datos = $conexion->registro()) != null) {
             $datosCuenta = new Cuenta(
                 $this->id,
                 $this->$datos[1],
@@ -53,13 +53,16 @@ class Cuenta
         $conexion->abrir();
         $conexion->ejecutar($cuenta_DAO->MostrarTodos());
         $this->CuentasLista = array();
-        while ($datos = $conexion->registro() != null) {
-            $Prop = new Propietario($datos[4], $datos[5], $datos[6], $datos[7]);
-            $Apart = new Apartamento($datos[2], $datos[3], 0, $Prop);
-            $Cue = new Cuenta($datos[0], $datos[1], 0, 0, 0, $Apart);
 
-            array_push($this->CuentasLista, $datos);
+        while (($datos = $conexion->registro()) != null) {
+            $Prop = new Propietario($datos[3], $datos[4], $datos[5], $datos[6]);
+            $Apart = new Apartamento($datos[1], $datos[2], 0, $Prop);
+            $Cue = new Cuenta($datos[0], 0, 0, 0, 0, $Apart);
+
+            // Cambiar esta línea:
+            array_push($this->CuentasLista, $Cue); // ✅
         }
+
         $conexion->cerrar();
     }
 
