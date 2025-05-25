@@ -7,7 +7,7 @@ class Conexion
 
     public function abrir()
     {
-        $this->conexion = new mysqli("localhost", "root", "", "Conjuntos");
+        $this->conexion = new mysqli("localhost", "root", "root", "Conjuntos");
     }
 
     public function cerrar()
@@ -37,10 +37,16 @@ class Conexion
 
     public function filas()
     {
-        return $this->resultado->num_rows;
+        if (!$this->resultado) {
+            
+            return 0;
+        }
+
+        if ($this->resultado instanceof mysqli_result) {
+            return $this->resultado->num_rows;
+        }
+
+        
+        return 0;
     }
-
 }
-
-
-?>

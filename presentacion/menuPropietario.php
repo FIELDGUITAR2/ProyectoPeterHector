@@ -17,10 +17,10 @@ $propietario->consultar();
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 						href="#" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"> Cita </a>
+						aria-expanded="false"> Cuenta </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cita/consultarCita.php")?>">Consultar</a></li>
-							<li><a class="dropdown-item" href="#">Crear</a></li>
+							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/consultarCuentas.php")?>">Consultar</a></li>
+							<li><a class="dropdown-item" href="#">Pagar</a></li>
 						</ul></li>
 					
 				</ul>

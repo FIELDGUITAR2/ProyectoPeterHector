@@ -53,6 +53,6 @@ class ApartamentoDAO
 
     public function tienePropietario($idApartamento)
     {
-        return "SELECT idPropietario FROM Apartamento WHERE idApartamento = '$idApartamento' AND idPropietario IS NOT NULL";
+        return "SELECT Propietario_idPropietario FROM Apartamento WHERE idApartamento = '$idApartamento' AND Propietario_idPropietario IS NOT NULL";
     }
 }

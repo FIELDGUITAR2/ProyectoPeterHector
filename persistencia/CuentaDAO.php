@@ -58,9 +58,5 @@ class CuentaDAO
         return "UPDATE Cuenta SET saldoAnterior = '$saldoAnterior' WHERE idCuenta = '$idCuentaAnterior';";
     }
 
-<<<<<<< HEAD:persistencia/CuentaDao.php
     
-=======
-
->>>>>>> f82b06917c69fab4e1a3e39d68207f7da67d6373:persistencia/CuentaDAO.php
 }

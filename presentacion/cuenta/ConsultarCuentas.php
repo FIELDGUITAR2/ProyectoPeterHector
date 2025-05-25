@@ -13,8 +13,8 @@ $rol = $_SESSION["rol"];
 <div class="container mt-4">
     <div class="row">
         <div class="col">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
+            <div class="card shadow-sm ">
+                <div class="card-header ">
                     <h4 class="mb-0">Listado de Cuentas</h4>
                 </div>
                 <div class="card-body d-flex justify-content-center align-items-center" style="min-height: 150px;">
