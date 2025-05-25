@@ -31,15 +31,34 @@ class Cuenta
         $conexion->abrir();
         $conexion->ejecutar($cuentaDAO->consultar());
         $this->CuentasLista = array();
-        if ($datos = $conexion->registro() != null) {
-            $datosCuenta = new Cuenta($this->id, 
-            $this->$datos[1], 
-            $this->$datos[2], 
-            $this->$datos[3], 
-            $this->$datos[4], 
-            $this->$datos[5], 
-            $this->$datos[6]);
-            array_push($CuentasLista,$datosCuenta);
+        while ($datos = $conexion->registro() != null) {
+            $datosCuenta = new Cuenta(
+                $this->id,
+                $this->$datos[1],
+                $this->$datos[2],
+                $this->$datos[3],
+                $this->$datos[4],
+                $this->$datos[5],
+                $this->$datos[6]
+            );
+            array_push($CuentasLista, $datosCuenta);
+        }
+        $conexion->cerrar();
+    }
+
+    public function consultarCuentas()
+    {
+        $conexion = new Conexion();
+        $cuenta_DAO = new CuentaDAO();
+        $conexion->abrir();
+        $conexion->ejecutar($cuenta_DAO->MostrarTodos());
+        $this->CuentasLista = array();
+        while ($datos = $conexion->registro() != null) {
+            $Prop = new Propietario($datos[4], $datos[5], $datos[6], $datos[7]);
+            $Apart = new Apartamento($datos[2], $datos[3], 0, $Prop);
+            $Cue = new Cuenta($datos[0], $datos[1], 0, 0, 0, $Apart);
+
+            array_push($this->CuentasLista, $datos);
         }
         $conexion->cerrar();
     }
@@ -82,7 +101,7 @@ class Cuenta
 
         if ($datos) {
             $cuenta = new Cuenta(
-                $datos[0], 
+                $datos[0],
                 $datos[1],
                 $datos[2],
                 $datos[3],
@@ -151,7 +170,7 @@ class Cuenta
 
     /**
      * Get the value of CuentasLista
-     */ 
+     */
     public function getCuentasLista()
     {
         return $this->CuentasLista;
@@ -161,7 +180,7 @@ class Cuenta
      * Set the value of CuentasLista
      *
      * @return  self
-     */ 
+     */
     public function setCuentasLista($CuentasLista)
     {
         $this->CuentasLista = $CuentasLista;

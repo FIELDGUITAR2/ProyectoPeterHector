@@ -10,9 +10,7 @@ class Admin extends Persona
     {
         parent::__construct($id, $nombre, $apellido, $telefono, $clave);
     }
-
-
-
+    
     public function consultar2()
     {
         $conexion = new Conexion();
