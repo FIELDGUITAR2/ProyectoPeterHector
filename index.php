@@ -12,6 +12,11 @@
     require_once("logica/Cuenta.php");
     require_once("logica/Pago.php");
     ?>
+    <?php
+if (isset($_GET['pid'])) {
+    include(base64_decode($_GET['pid']));
+}
+?>
     <!DOCTYPE html>
     <html>
 

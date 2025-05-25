@@ -57,6 +57,26 @@ class CuentaDAO
     {
         return "UPDATE Cuenta SET saldoAnterior = '$saldoAnterior' WHERE idCuenta = '$idCuentaAnterior';";
     }
+    public function listarPorPropietario($idPropietario)
+    {
+        return "SELECT 
+                    Cuenta.idCuenta, 
+                    Cuenta.fechaLimite, 
+                    Cuenta.cantidad, 
+                    Cuenta.saldoAnterior, 
+                    EstadoPago.valor AS estado, 
+                    Apartamento.nombre AS apartamento
+                FROM Cuenta 
+                INNER JOIN Apartamento ON Cuenta.Apartamento_idApartamento = Apartamento.idApartamento
+                INNER JOIN EstadoPago ON Cuenta.EstadoPago_idEstadoPago = EstadoPago.idEstadoPago
+                WHERE Apartamento.Propietario_idPropietario = '$idPropietario'
+                ORDER BY Cuenta.fechaLimite DESC";
+    }
+    public function actualizarEstadoPago($idCuenta, $idEstadoPago)
+    {
+        return "UPDATE Cuenta SET EstadoPago_idEstadoPago = '$idEstadoPago' WHERE idCuenta = '$idCuenta'";
+    }
+
 
 
 }
