@@ -36,7 +36,7 @@ class PropietarioDAO {
 
     public function actualizar()
     {
-        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}' WHERE id = {$this->id}";
+        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}' WHERE idPropietario = {$this->id}";
        
     }
 }

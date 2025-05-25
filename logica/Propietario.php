@@ -58,7 +58,8 @@
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", $this->nombre, "", $this->clave);
+            $propietarioDAO = new PropietarioDAO("", $this->nombre, "", "", $this->clave);
+
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
             if ($conexion->filas() == 1) {
