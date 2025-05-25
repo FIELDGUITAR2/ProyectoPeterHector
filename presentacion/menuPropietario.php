@@ -19,7 +19,7 @@ $propietario->consultar();
 						href="#" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false"> Cuenta </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/consultarCuentas.php")?>">Consultar</a></li>
+							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/ConsultarCuentas.php")?>">Consultar</a></li>
 							<li><a class="dropdown-item" href="#">Pagar</a></li>
 						</ul></li>
 					
