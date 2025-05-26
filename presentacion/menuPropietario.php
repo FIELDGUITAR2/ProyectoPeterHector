@@ -17,23 +17,14 @@ $propietario->consultar();
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="?pid=<?php echo base64_encode("presentacion/sesionPropietario.php"); ?>">Home</a>
-					</li>
-
-					<li class="nav-item">
-    					<a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/cuentasPropietario/pagar_propietario.php"); ?>">Pagar Cuentas</a>
-					</li>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+						href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false"> Cuenta </a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/cuenta/ConsultarCuentas.php")?>">Consultar</a></li>
+							<li><a class="dropdown-item" href="#">Pagar</a></li>
+						</ul></li>
 					
-					<li class="nav-item">
-    					<a class="nav-link" href="?pid=<?php echo base64_encode("presentacion/CuentasPropietario/consultarCuentas.php"); ?>">Cuentas</a>
-					</li>
-
-					
-
-					<li class="nav-item">
-						<a class="nav-link disabled" aria-disabled="true">Disabled</a>
-					</li>
 				</ul>
 
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -43,17 +34,9 @@ $propietario->consultar();
 							Propietario: <?php echo $propietario->getNombre() . " " . $propietario->getApellido() ?>
 						</a>
 						<ul class="dropdown-menu">
-							<li>
-								<a class="dropdown-item" href="#">Editar Perfil</a>
-							</li>
-							<li>
-								<a class="dropdown-item"
-									href="?pid=<?php echo base64_encode("presentacion/Autenticar.php") ?>&sesion=false">
-									Cerrar Sesión
-								</a>
-							</li>
-						</ul>
-					</li>
+								<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/editarUsuario.php")?>">Editar Perfil</a></li>
+							<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/Autenticar.php")?>&sesion=false">Cerrar Sesion</a></li>
+						</ul></li>
 				</ul>
 			</div>
 		</div>

@@ -10,9 +10,7 @@ class Admin extends Persona
     {
         parent::__construct($id, $nombre, $apellido, $telefono, $clave);
     }
-
-
-
+    
     public function consultar2()
     {
         $conexion = new Conexion();
@@ -21,13 +19,14 @@ class Admin extends Persona
         $conexion->ejecutar($adminDAO->consultar2());
         $admins = array();
         while (($datos = $conexion->registro()) != null) {
-           $admin = new Admin($datos[0], $datos[1], $datos[2], "", "");
+            $admin = new Admin($datos[0], $datos[1], $datos[2], "", "");
 
             array_push($admins, $admin);
         }
         $conexion->cerrar();
         return $admins;
     }
+
 
     public function consultar()
     {
@@ -36,10 +35,16 @@ class Admin extends Persona
         $conexion->abrir();
         $conexion->ejecutar($adminDAO->consultar());
         $datos = $conexion->registro();
-        $this->nombre = $datos[1];
-        $this->apellido = $datos[2];
+        if ($datos) {
+            $this->nombre = $datos[1];
+            $this->apellido = $datos[2];
+            $this->telefono = $datos[3];
+            $this->clave = $datos[4];
+        }
         $conexion->cerrar();
+        return $this;
     }
+
 
     public function autenticar()
     {
@@ -55,5 +60,16 @@ class Admin extends Persona
             $conexion->cerrar();
             return false;
         }
+    }
+
+    public function actualizar()
+    {
+        $conexion = new Conexion();
+        $adminDAO = new AdminDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave);
+        $conexion->abrir();
+        $conexion->ejecutar($adminDAO->actualizar());
+        $resultado = $conexion -> getResultado();
+        $conexion->cerrar();
+        return $resultado; 
     }
 }

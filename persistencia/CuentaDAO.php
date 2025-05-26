@@ -20,6 +20,38 @@ class CuentaDAO
         $this->idEstadoPago = $idEstadoPago;
     }
 
+    public function MostrarTodos($idPropietario)
+    {
+        if($idPropietario != null || $idPropietario != ""){
+            $Consulta = "select c.idCuenta as ID_Cuenta, a.idApartamento as ID_Apartamento , 
+            a.nombre as Nombre_Apartamento, p.idPropietario as ID_Propietario , 
+            p.nombre as Nombre_Propietario, p.apellido as Apellido_Propietario, 
+            p.telefono as Telefono, e.idEstadoPago as ID_Estado , e.valor as Estado 
+            from Cuenta c 
+            join Apartamento a on c.Apartamento_idApartamento = a.idApartamento 
+            join Propietario p on a.Propietario_idPropietario = p.idPropietario 
+            join EstadoPago e on c.EstadoPago_idEstadoPago = e.idEstadoPago 
+            where p.idPropietario = $idPropietario 
+            ORDER by idCuenta";
+        }else{
+            $Consulta = "select c.idCuenta as ID_Cuenta, 
+            a.idApartamento as ID_Apartamento , 
+            a.nombre as Nombre_Apartamento, 
+            p.idPropietario as ID_Propietario , 
+            p.nombre as Nombre_Propietario, 
+            p.apellido as Apellido_Propietario, 
+            p.telefono as Telefono, 
+            e.idEstadoPago as ID_Estado, 
+            e.valor as Estado 
+            from Cuenta c 
+            join Apartamento a on c.Apartamento_idApartamento = a.idApartamento 
+            join Propietario p on a.Propietario_idPropietario = p.idPropietario 
+            join EstadoPago e on c.EstadoPago_idEstadoPago = e.idEstadoPago
+            ORDER by idCuenta"; 
+        }
+         
+        return $Consulta;      
+    }
     public function consultar()
     {
         return "SELECT * FROM Cuenta WHERE idCuenta = '" . $this->id . "'";
@@ -78,6 +110,6 @@ class CuentaDAO
     }
 
 
-
+    
 }
   

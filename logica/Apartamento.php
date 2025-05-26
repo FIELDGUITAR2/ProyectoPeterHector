@@ -18,8 +18,7 @@ class Apartamento
         $this->propietario = $propietario;
     }
 
-    public function consultarTodos()
-    {
+    public function consultarTodos(){
         $conexion = new Conexion();
         $apartamentoDAO = new ApartamentoDAO();
         $conexion->abrir();
@@ -40,8 +39,7 @@ class Apartamento
         return $apartamentos;
     }
 
-    public function consultarPorNombre($nombre)
-    {
+    public function consultarPorNombre($nombre){
         $conexion = new Conexion();
         $apartamentoDAO = new ApartamentoDAO();
         $conexion->abrir();
@@ -62,6 +60,19 @@ class Apartamento
         $conexion->cerrar();
         return null;
     }
+
+    public function tienePropietario($idApartamento){
+    $conexion = new Conexion();
+    $apartamentoDAO = new ApartamentoDAO();
+    $conexion->abrir();
+
+    $conexion->ejecutar($apartamentoDAO->tienePropietario($idApartamento));
+    $tiene = $conexion->filas() > 0;
+
+    $conexion->cerrar();
+
+    return $tiene;
+}
 
 
 

@@ -6,6 +6,7 @@
     class Propietario extends Persona
     {
         private $fechaIngreso;
+        private $PropietariosLista;
 
         public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "")
         {
@@ -27,7 +28,7 @@
             $conexion->ejecutar($propietarioDAO->consultar2());
             $propietarios = array();
             while (($datos = $conexion->registro()) != null) {
-                
+
                 $propietario = new Propietario($datos[0], $datos[1], $datos[2], "", "", $datos[3]);
                 array_push($propietarios, $propietario);
             }
@@ -39,21 +40,27 @@
         public function consultar()
         {
             $conexion = new Conexion();
-            $PropietarioDao = new PropietarioDAO($this->id);
+            $propietarioDAO = new PropietarioDAO($this->id);
             $conexion->abrir();
-            $conexion->ejecutar($PropietarioDao->consultar());
+            $conexion->ejecutar($propietarioDAO->consultar());
             $datos = $conexion->registro();
-            $this->nombre = $datos[1];
-            $this->apellido = $datos[2];
-            $this->fechaIngreso = $datos[3]; 
+            if ($datos) {
+                $this->nombre = $datos[1];
+                $this->apellido = $datos[2];
+                $this->telefono = $datos[3];
+                $this->clave = $datos[4];
+                $this->fechaIngreso = $datos[5];
+            }
             $conexion->cerrar();
         }
+
 
 
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", $this->nombre, "", $this->clave);
+            $propietarioDAO = new PropietarioDAO("", $this->nombre, "", "", $this->clave);
+
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
             if ($conexion->filas() == 1) {
@@ -64,5 +71,25 @@
                 $conexion->cerrar();
                 return false;
             }
+        }
+
+
+        public function actualizar()
+        {
+            $conexion = new Conexion();
+            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
+            $conexion->abrir();
+            $conexion->ejecutar($propietarioDAO->actualizar());
+            $resultado = $conexion->getResultado();
+            $conexion->cerrar();
+            return $resultado;
+        }
+
+        /**
+         * Get the value of PropietariosLista
+         */ 
+        public function getPropietariosLista()
+        {
+                return $this->PropietariosLista;
         }
     }

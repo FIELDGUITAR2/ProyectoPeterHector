@@ -37,10 +37,24 @@ class Conexion
 
     public function filas()
     {
-        return $this->resultado->num_rows;
+        if (!$this->resultado) {
+            
+            return 0;
+        }
+
+        if ($this->resultado instanceof mysqli_result) {
+            return $this->resultado->num_rows;
+        }
+
+        
+        return 0;
     }
 
+    /**
+     * Get the value of resultado
+     */ 
+    public function getResultado()
+    {
+        return $this->resultado;
+    }
 }
-
-
-?>

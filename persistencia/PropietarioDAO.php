@@ -1,22 +1,21 @@
 <?php
 
-class PropietarioDAO
-{
+class PropietarioDAO {
     private $id;
     private $nombre;
     private $apellido;
+    private $telefono;
     private $clave;
-    private $fechaNacimiento;
+    private $fechaIngreso;
 
-    public function __construct($id = 0, $nombre = "", $apellido = "",  $clave = "", $fechaNacimiento = "")
-    {
+    public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "") {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
+        $this->telefono = $telefono;
         $this->clave = $clave;
-        $this->fechaNacimiento = $fechaNacimiento;
+        $this->fechaIngreso = $fechaIngreso;
     }
-
 
     public function autenticar()
     {
@@ -30,10 +29,14 @@ class PropietarioDAO
         return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario";
     }
 
-     public function consultar()
+    public function consultar()
     {
-        return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario
-        where idPropietario = '" . $this -> id . "'";
+        return "SELECT idPropietario, nombre, apellido, telefono, clave, fechaIngreso FROM Propietario WHERE idPropietario = '" . $this->id . "'";
+    }
+
+    public function actualizar()
+    {
+        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}' WHERE idPropietario = {$this->id}";
+       
     }
 }
-
