@@ -51,6 +51,13 @@ class ApartamentoDAO
         }
     }
 
+    public function ApartamentoPropietario($idPropietario)
+    {
+        $consulta = "select ap.idApartamento as ID_Apartamento, ar.metrosCuadrados as Metros_Cuadrados, ap.nombre as Numero_Apartamento 
+        from Apartamento ap join Area ar on ap.Area_idArea = ar.idArea 
+        where ap.Propietario_idPropietario = $idPropietario ";
+        return $consulta;
+    }
     public function tienePropietario($idApartamento)
     {
         return "SELECT Propietario_idPropietario FROM Apartamento WHERE idApartamento = '$idApartamento' AND Propietario_idPropietario IS NOT NULL";
