@@ -30,9 +30,7 @@
     <?php
 
     $paginas_sin_autenticacion = array(
-        "presentacion/Autenticar.php",
-
-
+        "presentacion/Autenticar.php"
     );
 
     $paginas_con_autenticacion = array(

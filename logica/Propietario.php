@@ -6,6 +6,7 @@
     class Propietario extends Persona
     {
         private $fechaIngreso;
+        private $PropietariosLista;
 
         public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "")
         {
@@ -82,5 +83,13 @@
             $resultado = $conexion->getResultado();
             $conexion->cerrar();
             return $resultado;
+        }
+
+        /**
+         * Get the value of PropietariosLista
+         */ 
+        public function getPropietariosLista()
+        {
+                return $this->PropietariosLista;
         }
     }

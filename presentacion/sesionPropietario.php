@@ -2,21 +2,13 @@
 if ($_SESSION["rol"] != "propietario") {
     header("Location: ?pid=" . base64_encode("presentacion/Autenticar.php"));
 }
-
 ?>
-
-
 <body>
 <?php 
 include ("presentacion/Extremos/Cabeza.php");
 include ("presentacion/menuPropietario.php");
 include ("presentacion/inicio.php");
 ?>
-
-
-
-
-
 </body>
 
 <!--
