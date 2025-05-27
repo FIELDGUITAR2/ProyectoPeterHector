@@ -21,6 +21,20 @@ class ApartamentoDAO
         where idApartamento = $this->id";
     }
 
+    public function ApartamentosPropietarioLista($idPropietario)
+    {
+        $Consulta = "select a.idApartamento as ID_Apartamento, a.nombre as Numero_Apartamento, 
+        ar.idArea as ID_Area, ar.metrosCuadrados as Area_Mc, c.idCuenta as ID_Cuenta, 
+        c.cantidad as Cantidad, ep.idEstadoPago as ID_Estado, ep.valor as Estado_Pago 
+        FROM Cuenta c 
+        join Apartamento a on c.Apartamento_idApartamento = a.idApartamento 
+        join Area ar on a.Area_idArea = ar.idArea 
+        join EstadoPago ep on c.EstadoPago_idEstadoPago = ep.idEstadoPago 
+        where
+        a.Propietario_idPropietario = $idPropietario order by a.idApartamento;"; 
+        return $Consulta;
+    }
+
     public function consultarTodos()
     {
         return "select a.idApartamento, a.nombre nombreApartamento,
@@ -51,6 +65,13 @@ class ApartamentoDAO
         }
     }
 
+    public function ApartamentoPropietario($idPropietario)
+    {
+        $consulta = "select ap.idApartamento as ID_Apartamento, ar.metrosCuadrados as Metros_Cuadrados, ap.nombre as Numero_Apartamento 
+        from Apartamento ap join Area ar on ap.Area_idArea = ar.idArea 
+        where ap.Propietario_idPropietario = $idPropietario ";
+        return $consulta;
+    }
     public function tienePropietario($idApartamento)
     {
         return "SELECT Propietario_idPropietario FROM Apartamento WHERE idApartamento = '$idApartamento' AND Propietario_idPropietario IS NOT NULL";

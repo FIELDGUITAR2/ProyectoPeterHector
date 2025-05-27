@@ -9,6 +9,7 @@ class Apartamento
     private $nombre;
     private $area;
     private $propietario;
+    private $CuentasLista;
 
     public function __construct($id = "", $nombre = "", $area = null, $propietario = null)
     {
@@ -37,6 +38,27 @@ class Apartamento
         }
         $conexion->cerrar();
         return $apartamentos;
+    }
+
+    public function ConsultarApartamentosCuentas($idPropietario){
+        $conexion = new Conexion();
+        $apartamentoDAO = new ApartamentoDAO();
+        $conexion->abrir();
+        $conexion->ejecutar($apartamentoDAO->ApartamentosPropietarioLista($idPropietario));
+        $apartamentos = array();
+        while (($datos = $conexion->registro()) != null) {
+            $Area = new Area($datos[2],$datos[3]);
+            $Apart = new Apartamento($datos[0], $datos[1], $Area);
+            $Est = new Estado($datos[6], $datos[7]);
+            $Cue = new Cuenta($datos[4],0, $datos[5],
+            0, 0, $Apart, 
+            $Est);
+
+            // Cambiar esta línea:
+            array_push($this->CuentasLista, $Cue);
+        }
+
+        $conexion->cerrar();
     }
 
     public function consultarPorNombre($nombre){
@@ -95,5 +117,18 @@ class Apartamento
     public function getPropietario()
     {
         return $this->propietario;
+    }
+
+    public function ListaApartamentos($idPropietario)
+    {
+        $conexion = new Conexion();
+        $Apartamento  = new Apartamento();
+        $Apartamentodao = new ApartamentoDAO();
+        $consulta = $Apartamentodao ->  ApartamentoPropietario($idPropietario);
+        $conexion -> abrir();
+        $conexion -> ejecutar($consulta);
+        $listaApartamentos = $conexion -> getResultado();
+        
+        
     }
 }
