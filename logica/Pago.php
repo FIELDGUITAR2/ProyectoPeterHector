@@ -27,4 +27,6 @@ class Pago
     {
         return $this->cuenta;
     }
+
+    
 }

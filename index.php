@@ -8,7 +8,7 @@
     require_once("logica/Admin.php");
     require_once("logica/Propietario.php");
     require_once("logica/Apartamento.php");
-    require_once("logica/Aria.php");
+    require_once("logica/Area.php");
     require_once("logica/Cuenta.php");
     require_once("logica/Pago.php");
     ?>
