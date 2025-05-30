@@ -57,13 +57,5 @@
             </div>
         </div>
     </div>
-    <?php
-        if($_SESSION["rol"]=="propietario"){
-            include("TablaPropietarios.php");
-        }elseif($_SESSION["rol"]=="admin"){
-            include("TablaAdmin.php");
-        }else{
-            echo "Error";
-        }
-    ?>
+   
 </div>
