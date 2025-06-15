@@ -1,11 +1,14 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $rol = $_SESSION["rol"];
 $id = $_SESSION["id"];
 
+
 $datosUsuario = null;
 
-// Obtener datos actuales del usuario
+
 if ($rol == "admin") {
     $admin = new Admin($id);
     $admin->consultar();
@@ -16,7 +19,7 @@ if ($rol == "admin") {
     $datosUsuario = $propietario;
 }
 
-// Procesar actualización si se envió el formulario
+
 if (isset($_POST['actualizarUsuario'])) {
     $nombre = trim($_POST['nombreUsuario'] ?? '');
     $apellido = trim($_POST['apellidoUsuario'] ?? '');
@@ -64,7 +67,7 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
             </div>
             <div class="card-body">
 
-                <!-- Mensajes de confirmación o error -->
+              
                 <?php if (isset($mensaje)) { ?>
                     <div class="alert alert-success text-center">
                         <?php echo $mensaje; ?>
