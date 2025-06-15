@@ -96,4 +96,17 @@ class Apartamento
     {
         return $this->propietario;
     }
+
+    public function ListaApartamentos($idPropietario)
+    {
+        $conexion = new Conexion();
+        $Apartamento  = new Apartamento();
+        $Apartamentodao = new ApartamentoDAO();
+        $consulta = $Apartamentodao ->  ApartamentoPropietario($idPropietario);
+        $conexion -> abrir();
+        $conexion -> ejecutar($consulta);
+        $listaApartamentos = $conexion -> getResultado();
+        
+        
+    }
 }

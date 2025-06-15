@@ -1,5 +1,5 @@
 
-<div class="container min-vh-100 d-flex flex-column justify-content-center pt-5 ">
+<div class="container min-vh-10 d-flex flex-column justify-content-center pt-2 ">
     <div class="row w-100 justify-content-center g-4">
         <!-- ¿Quiénes somos? -->
        <div class="col-12 col-md-6 col-lg-4 ">
@@ -57,13 +57,5 @@
             </div>
         </div>
     </div>
-    <?php
-        if($_SESSION["rol"]=="propietario"){
-            include("TablaPropietarios.php");
-        }elseif($_SESSION["rol"]=="admin"){
-            include("TablaAdmin.php");
-        }else{
-            echo "Error";
-        }
-    ?>
+   
 </div>
