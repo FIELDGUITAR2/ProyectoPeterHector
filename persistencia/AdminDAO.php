@@ -7,21 +7,23 @@ class AdminDAO
     private $apellido;
     private $telefono;
     private $clave;
+    private $correo;
 
-    public function __construct($id = 0, $nombre = "", $apellido = "", $telefono = "", $clave = "")
+    public function __construct($id = 0, $nombre = "", $apellido = "", $telefono = "", $clave = "", $correo = "")
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->telefono = $telefono;
         $this->clave = $clave;
+        $this->correo = $correo;
     }
 
     public function autenticar()
     {
         return "SELECT idAdmin 
         FROM Admin 
-        WHERE nombre = '" . $this->nombre . "' AND clave = '" . $this->clave . "'";
+        WHERE Correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
     }
 
     public function consultar()
