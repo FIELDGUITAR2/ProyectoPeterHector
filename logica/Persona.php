@@ -67,4 +67,16 @@ abstract class Persona
     {
         return $this->correo;
     }
+
+    /**
+     * Set the value of correo
+     *
+     * @return  self
+     */ 
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
+    }
 }

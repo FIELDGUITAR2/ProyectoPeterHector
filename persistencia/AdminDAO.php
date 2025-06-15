@@ -28,7 +28,7 @@ class AdminDAO
 
     public function consultar()
     {
-        return "SELECT idAdmin, nombre, apellido, telefono, clave FROM Admin
+        return "SELECT idAdmin, nombre, apellido, telefono, clave, Correo FROM Admin
             WHERE idAdmin = '" . $this->id . "'";
     }
 

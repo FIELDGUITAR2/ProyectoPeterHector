@@ -7,21 +7,23 @@ class PropietarioDAO {
     private $telefono;
     private $clave;
     private $fechaIngreso;
+    private $correo;
 
-    public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "") {
+    public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "", $correo="") {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this->telefono = $telefono;
         $this->clave = $clave;
         $this->fechaIngreso = $fechaIngreso;
+        $this->correo = $correo;
     }
 
     public function autenticar()
     {
         return "SELECT idPropietario 
             FROM Propietario 
-            WHERE nombre = '" . $this->nombre . "' AND clave = '" . $this->clave . "'";
+            WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
     }
 
     public function consultar2()

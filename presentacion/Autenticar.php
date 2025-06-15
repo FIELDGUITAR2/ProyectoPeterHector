@@ -16,7 +16,8 @@ if (isset($_POST["autenticar"])) {
         $_SESSION["rol"] = "admin";
         header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
     } else {
-        $propietario = new Propietario("", "", "","", $clave, $nombre);
+        $propietario = new Propietario("", "", "","", $clave, "",
+        $nombre);
         if ($propietario->autenticar()) {
             $_SESSION["id"] = $propietario->getId();
             $_SESSION["rol"] = "propietario";

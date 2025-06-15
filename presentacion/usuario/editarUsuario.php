@@ -25,12 +25,14 @@ if (isset($_POST['actualizarUsuario'])) {
     $apellido = trim($_POST['apellidoUsuario'] ?? '');
     $telefono = trim($_POST['telefonoUsuario'] ?? '');
     $clave = trim($_POST['claveUsuario'] ?? '');
+    $correo = trim($_POST['correoUsuario'] ?? '');
 
     if ($rol == "admin") {
         $admin->setNombre($nombre);
         $admin->setApellido($apellido);
         $admin->setTelefono($telefono);
         $admin->setClave($clave);
+        $admin->setCorreo($correo);
         $resultado = $admin->actualizar();
 
         if ($resultado) {
@@ -44,6 +46,7 @@ if (isset($_POST['actualizarUsuario'])) {
         $propietario->setApellido($apellido);
         $propietario->setTelefono($telefono);
         $propietario->setClave($clave);
+        $propietario->setCorreo($correo);
         $resultado = $propietario->actualizar();
 
         if ($resultado) {
@@ -89,6 +92,12 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                         <div class="col-md-6 mb-3">
                             <label for="apellidoUsuario" class="form-label">Apellido:</label>
                             <input type="text" name="apellidoUsuario" id="apellidoUsuario" class="form-control"
+                                value="<?php echo isset($datosUsuario) ? htmlspecialchars($datosUsuario->getApellido()) : ''; ?>" required>
+                        </div>
+                        <!-- Correo -->
+                        <div class="col-md-6 mb-3">
+                            <label for="correoUsuario" class="form-label">Correo:</label>
+                            <input type="text" name="correoUsuario" id="correoUsuario" class="form-control"
                                 value="<?php echo isset($datosUsuario) ? htmlspecialchars($datosUsuario->getApellido()) : ''; ?>" required>
                         </div>
 

@@ -40,6 +40,7 @@ class Admin extends Persona
             $this->apellido = $datos[2];
             $this->telefono = $datos[3];
             $this->clave = $datos[4];
+            $this->correo = $datos[5];
         }
         $conexion->cerrar();
         return $this;
