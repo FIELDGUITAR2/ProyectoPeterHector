@@ -38,7 +38,7 @@ if (isset($_POST['actualizarUsuario'])) {
         if ($resultado) {
             $mensaje = "Datos actualizados correctamente.";
         } else {
-            $mensajeError = "Error al actualizar los datos.";
+            $mensajeError = "Error al actualizar los datos.1";
         }
         $datosUsuario = $admin;
     } elseif ($rol == "propietario") {
@@ -52,7 +52,7 @@ if (isset($_POST['actualizarUsuario'])) {
         if ($resultado) {
             $mensaje = "Datos actualizados correctamente.";
         } else {
-            $mensajeError = "Error al actualizar los datos.";
+            $mensajeError = "Error al actualizar los datos.2";
         }
         $datosUsuario = $propietario;
     }
@@ -98,7 +98,7 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                         <div class="col-md-6 mb-3">
                             <label for="correoUsuario" class="form-label">Correo:</label>
                             <input type="text" name="correoUsuario" id="correoUsuario" class="form-control"
-                                value="<?php echo isset($datosUsuario) ? htmlspecialchars($datosUsuario->getApellido()) : ''; ?>" required>
+                                value="<?php echo isset($datosUsuario) ? htmlspecialchars($datosUsuario->getCorreo()) : ''; ?>" required>
                         </div>
 
                         <div class="col-md-6 mb-3">

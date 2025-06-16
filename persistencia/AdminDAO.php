@@ -40,6 +40,6 @@ class AdminDAO
 
     
     public function actualizar() {
-        return "UPDATE admin SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}' WHERE idAdmin = {$this->id}";
+        return "UPDATE admin SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', Correo = '{$this->correo}' WHERE idAdmin = {$this->id}";
     }
 }

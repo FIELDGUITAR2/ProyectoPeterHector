@@ -50,6 +50,7 @@
                 $this->telefono = $datos[3];
                 $this->clave = $datos[4];
                 $this->fechaIngreso = $datos[5];
+                $this->correo = $datos[6];
             }
             $conexion->cerrar();
         }
@@ -59,8 +60,7 @@
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "",
-            $this->correo);
+            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "", $this->correo);
 
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
@@ -78,7 +78,7 @@
         public function actualizar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
+            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso, $this->correo);
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->actualizar());
             $resultado = $conexion->getResultado();

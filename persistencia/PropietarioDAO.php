@@ -33,12 +33,12 @@ class PropietarioDAO {
 
     public function consultar()
     {
-        return "SELECT idPropietario, nombre, apellido, telefono, clave, fechaIngreso FROM Propietario WHERE idPropietario = '" . $this->id . "'";
+        return "SELECT idPropietario, nombre, apellido, telefono, clave, fechaIngreso, correo FROM Propietario WHERE idPropietario = '" . $this->id . "'";
     }
 
     public function actualizar()
     {
-        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}' WHERE idPropietario = {$this->id}";
+        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', correo = '{$this->correo}' WHERE idPropietario = {$this->id}";
        
     }
 }

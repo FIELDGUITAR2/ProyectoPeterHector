@@ -66,7 +66,7 @@ class Admin extends Persona
     public function actualizar()
     {
         $conexion = new Conexion();
-        $adminDAO = new AdminDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave);
+        $adminDAO = new AdminDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->correo);
         $conexion->abrir();
         $conexion->ejecutar($adminDAO->actualizar());
         $resultado = $conexion -> getResultado();
