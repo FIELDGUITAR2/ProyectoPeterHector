@@ -1,5 +1,4 @@
 <?php
-
 class PropietarioDAO {
     private $id;
     private $nombre;
@@ -19,15 +18,13 @@ class PropietarioDAO {
         $this->correo = $correo;
     }
 
-    public function autenticar()
-    {
+    public function autenticar() {
         return "SELECT idPropietario 
             FROM Propietario 
             WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
     }
 
-    public function consultar2()
-    {
+    public function consultar2() {
         return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario";
     }
 
@@ -41,4 +38,6 @@ class PropietarioDAO {
         return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', correo = '{$this->correo}' WHERE idPropietario = {$this->id}";
        
     }
+
+
 }

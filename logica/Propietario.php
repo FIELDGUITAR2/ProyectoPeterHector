@@ -93,4 +93,10 @@
         {
                 return $this->PropietariosLista;
         }
+            public function obtenerPropietariosConApartamentos() {
+                return "SELECT p.idPropietario, p.nombre, p.apellido, p.telefono, p.correo, a.nombre AS apartamento
+                        FROM Propietario p
+                        LEFT JOIN Apartamento a ON p.idPropietario = a.Propietario_idPropietario
+                        ORDER BY p.idPropietario, a.nombre";
+            }
     }

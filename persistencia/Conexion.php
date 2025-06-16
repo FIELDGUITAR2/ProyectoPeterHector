@@ -4,6 +4,11 @@ class Conexion
 {
     private $conexion;
     private $resultado;
+    public function extraer()
+{
+    return $this->resultado ? $this->resultado->fetch_assoc() : null;
+}
+
 
     public function abrir()
     {
