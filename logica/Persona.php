@@ -7,14 +7,16 @@ abstract class Persona
     protected $apellido;
     protected $telefono;
     protected $clave;
+    protected $correo;
 
-    public function __construct($id = "", $nombre = "", $apellido = "",$telefono="" , $clave = "")
+    public function __construct($id = "", $nombre = "", $apellido = "",$telefono="" , $clave = "", $correo = "")
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
         $this ->telefono = $telefono;
         $this->clave = $clave;
+        $this->correo = $correo;
     }
 
     public function getId()
@@ -56,5 +58,25 @@ abstract class Persona
 
     public function setClave($clave) {
         $this->clave = $clave;
+    }
+
+    /**
+     * Get the value of correo
+     */ 
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * Set the value of correo
+     *
+     * @return  self
+     */ 
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+
+        return $this;
     }
 }

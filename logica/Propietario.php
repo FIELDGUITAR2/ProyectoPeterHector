@@ -8,9 +8,9 @@
         private $fechaIngreso;
         private $PropietariosLista;
 
-        public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "")
+        public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $fechaIngreso = "", $correo = "")
         {
-            parent::__construct($id, $nombre, $apellido, $telefono, $clave);
+            parent::__construct($id, $nombre, $apellido, $telefono, $clave, $correo);
             $this->fechaIngreso = $fechaIngreso;
         }
 
@@ -59,7 +59,8 @@
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", $this->nombre, "", "", $this->clave);
+            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "",
+            $this->correo);
 
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
