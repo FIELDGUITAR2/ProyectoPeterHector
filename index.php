@@ -23,6 +23,7 @@ $paginas_con_autenticacion = array(
     "presentacion/cuenta/crearCuenta.php",
     "presentacion/cuenta/ConsultarCuentas.php",
     "presentacion/CuentasPropietario/consultarCuentas.php",
+    "presentacion/usuario/agregarUsuario.php", 
     "presentacion/usuario/editarUsuario.php",
     "presentacion/cuenta/ConsultarCuentaProp.php",
     "presentacion/cuenta/pagarPropietario.php"
