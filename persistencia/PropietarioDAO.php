@@ -18,10 +18,15 @@ class PropietarioDAO {
         $this->correo = $correo;
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
+
     public function autenticar() {
 
 
-return "SELECT idPropietario 
+    return "SELECT idPropietario 
             FROM Propietario 
             WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
     }
@@ -39,6 +44,17 @@ return "SELECT idPropietario
     {
         return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', correo = '{$this->correo}' WHERE idPropietario = {$this->id}";
        
+    }
+
+    public function consultarApartamento()
+    {
+          return "SELECT a.idApartamento, a.nombre AS nombreApartamento, ar.metrosCuadrados,
+                               p.nombre AS nombrePropietario, p.apellido, p.telefono
+                        FROM Apartamento a
+                        INNER JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
+                        INNER JOIN Area ar ON a.Area_idArea = ar.idArea
+                        WHERE p.idPropietario = getId()
+                        ORDER BY a.nombre";
     }
 
 

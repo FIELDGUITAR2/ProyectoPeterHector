@@ -13,13 +13,9 @@
                 $conexion = new Conexion();
                 $conexion->abrir();
 
-                $sql = "SELECT a.idApartamento, a.nombre AS nombreApartamento, ar.metrosCuadrados,
-                               p.nombre AS nombrePropietario, p.apellido, p.telefono
-                        FROM Apartamento a
-                        INNER JOIN Propietario p ON a.Propietario_idPropietario = p.idPropietario
-                        INNER JOIN Area ar ON a.Area_idArea = ar.idArea
-                        WHERE p.idPropietario = $idPropietario
-                        ORDER BY a.nombre";
+                include_once("persistencia/PropietarioDAO.php");
+                $propietarioDAO = new PropietarioDAO();
+                $sql = $propietarioDAO->consultarApartamento($idPropietario);
                 $conexion->ejecutar($sql);
 
                 echo "<table class='table table-bordered table-striped table-hover text-center'>";
