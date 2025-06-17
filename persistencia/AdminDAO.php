@@ -42,4 +42,12 @@ class AdminDAO
     public function actualizar() {
         return "UPDATE admin SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', Correo = '{$this->correo}' WHERE idAdmin = {$this->id}";
     }
+
+    public function insertar() {
+        return "INSERT INTO Admin (nombre, apellido, telefono, clave, Correo) 
+                VALUES ('{$this->nombre}', '{$this->apellido}', '{$this->telefono}', '{$this->clave}', '{$this->correo}')";
+    }
+    public function eliminar() {
+        return "DELETE FROM Admin WHERE idAdmin = {$this->id}";
+    }
 }

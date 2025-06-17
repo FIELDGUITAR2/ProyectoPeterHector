@@ -60,7 +60,8 @@
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "", $this->correo);
+            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "",
+            $this->correo);
 
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
@@ -78,13 +79,36 @@
         public function actualizar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso, $this->correo);
+            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->actualizar());
             $resultado = $conexion->getResultado();
             $conexion->cerrar();
             return $resultado;
         }
+
+        public function insertar()
+        {
+            $conexion = new Conexion();
+            $propietarioDAO = new PropietarioDAO("", $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso, $this->correo);
+            $conexion->abrir();
+            $conexion->ejecutar($propietarioDAO->insertar());
+            $resultado = $conexion->getResultado();
+            $conexion->cerrar();
+            return $resultado;
+        }
+        public function eliminar()
+        {
+            $conexion = new Conexion();
+            $propietarioDAO = new PropietarioDAO($this->id);
+            $conexion->abrir();
+            $conexion->ejecutar($propietarioDAO->eliminar());
+            $resultado = $conexion->getResultado();
+            $conexion->cerrar();
+            return $resultado;
+        }
+
+        
 
         /**
          * Get the value of PropietariosLista

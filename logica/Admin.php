@@ -73,4 +73,26 @@ class Admin extends Persona
         $conexion->cerrar();
         return $resultado; 
     }
+
+    public function insertar()
+    {
+        $conexion = new Conexion();
+        $adminDAO = new AdminDAO("", $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->correo);
+        $conexion->abrir();
+        $conexion->ejecutar($adminDAO->insertar());
+        $resultado = $conexion -> getResultado();
+        $conexion->cerrar();
+        return $resultado; 
+    }
+
+    public function eliminar()
+    {
+        $conexion = new Conexion();
+        $adminDAO = new AdminDAO($this->id);
+        $conexion->abrir();
+        $conexion->ejecutar($adminDAO->eliminar());
+        $resultado = $conexion -> getResultado();
+        $conexion->cerrar();
+        return $resultado; 
+    }
 }

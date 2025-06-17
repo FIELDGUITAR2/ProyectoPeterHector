@@ -61,5 +61,13 @@ class PropietarioDAO {
                 WHERE p.idPropietario = " . $this->id . "
                 ORDER BY a.nombre";
     }
+
+    public function insertar() {
+        return "INSERT INTO Propietario (nombre, apellido, telefono, clave, fechaIngreso, correo) 
+                VALUES ('{$this->nombre}', '{$this->apellido}', '{$this->telefono}', '{$this->clave}', '{$this->fechaIngreso}', '{$this->correo}')";
+    }
+    public function eliminar() {
+        return "DELETE FROM Propietario WHERE idPropietario = {$this->id}";
+    }
 }
 ?>
