@@ -19,7 +19,9 @@ class PropietarioDAO {
     }
 
     public function autenticar() {
-        return "SELECT idPropietario 
+
+
+return "SELECT idPropietario 
             FROM Propietario 
             WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
     }

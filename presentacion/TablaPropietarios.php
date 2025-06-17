@@ -6,8 +6,7 @@
             </div>
             <div class="card-body table-responsive">
                 <?php
-                include_once '../persistencia/conexion.php';
-                session_start();
+                include_once ("persistencia/Conexion.php");
 
                 $idPropietario = $_SESSION['id']; // ID del propietario logueado
 
@@ -21,8 +20,7 @@
                         INNER JOIN Area ar ON a.Area_idArea = ar.idArea
                         WHERE p.idPropietario = $idPropietario
                         ORDER BY a.nombre";
-
-                $resultado = $conexion->ejecutar($sql);
+                $conexion->ejecutar($sql);
 
                 echo "<table class='table table-bordered table-striped table-hover text-center'>";
                 echo "<thead class='table-secondary'>
@@ -36,7 +34,7 @@
                     </thead>";
                 echo "<tbody>";
 
-                while ($fila = $conexion->extraer($resultado)) {
+                while ($fila = $conexion->extraer()) {
                     $id = $fila['idApartamento'];
                     $nombreApto = $fila['nombreApartamento'];
                     $area = $fila['metrosCuadrados'];
