@@ -52,7 +52,8 @@ if (isset($_POST['agregarUsuario'])) {
                 $nuevoPropietario->setTelefono($telefono);
                 $nuevoPropietario->setClave($clave);
                 $nuevoPropietario->setCorreo($correo);
-                // La fecha de ingreso se establecerá automáticamente en la base de datos
+                // Establecer la fecha actual como fecha de ingreso
+                $nuevoPropietario->setFechaIngreso(date('Y-m-d'));
                 $resultado = $nuevoPropietario->insertar();
             }
 

@@ -19,6 +19,11 @@
             return $this->fechaIngreso;
         }
 
+        public function setFechaIngreso($fechaIngreso)
+        {
+            $this->fechaIngreso = $fechaIngreso;
+        }
+
 
         public function consultar2()
         {
