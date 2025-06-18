@@ -60,7 +60,55 @@
             $conexion->cerrar();
         }
 
+        public function consultarTodos() {
+        $propietarios = array();
+        $conexion = new Conexion();
+        $conexion->abrir();
+    
+        $propietarioDAO = new PropietarioDAO();
+        $propietarios = $propietarioDAO->consultarTodos($conexion->getConexion());
+    
+        $conexion->cerrar();
+        return $propietarios;
+}
 
+           public function eliminar()
+        {
+            $conexion = new Conexion();
+            $propietarioDAO = new PropietarioDAO($this->id);
+            $conexion->abrir();
+    
+        try {
+        
+            $sql = $propietarioDAO->eliminarPropietario($conexion->getConexion(), $this->id);
+            $conexion->ejecutar($sql);
+        
+        // Verificar si la operación fue exitosa
+            if ($conexion->getConexion()->affected_rows > 0) {
+            $conexion->cerrar();
+            return true;
+            } else {
+            $conexion->cerrar();
+            return false;
+            }
+        
+        } catch (Exception $e) {
+        $conexion->cerrar();
+        throw new Exception("Error al eliminar propietario: " . $e->getMessage());
+        }      
+}
+
+
+        public function restaurar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+    
+        $propietarioDAO = new PropietarioDAO();
+        $resultado = $propietarioDAO->restaurar($conexion->getConexion(), $this->id);
+    
+        $conexion->cerrar();
+        return $resultado;
+}
 
         public function autenticar()
         {
@@ -102,16 +150,7 @@
             $conexion->cerrar();
             return $resultado;
         }
-        public function eliminar()
-        {
-            $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO($this->id);
-            $conexion->abrir();
-            $conexion->ejecutar($propietarioDAO->eliminar());
-            $resultado = $conexion->getResultado();
-            $conexion->cerrar();
-            return $resultado;
-        }
+        
 
         
         public function getPropietariosLista()

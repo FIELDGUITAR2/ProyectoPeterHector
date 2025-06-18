@@ -55,11 +55,13 @@ class Conexion
         return 0;
     }
 
-    /**
-     * Get the value of resultado
-     */ 
     public function getResultado()
     {
         return $this->resultado;
+    }
+
+    public function getConexion()
+    {
+        return $this->conexion;
     }
 }

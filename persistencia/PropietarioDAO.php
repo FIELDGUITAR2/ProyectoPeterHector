@@ -72,6 +72,57 @@ class PropietarioDAO {
                 '" . $this->fechaIngreso . "', 
                 '" . $this->correo . "')";
     }
+
+        public function consultarTodos($conexion) {
+        $propietarios = array();
+
+        try {
+        $sentenciaSQL = "SELECT idPropietario, nombre, apellido, telefono, correo, fechaIngreso 
+                    FROM Propietario 
+                    WHERE activo = 1 
+                    ORDER BY nombre, apellido";
+    
+        $sentencia = $conexion->prepare($sentenciaSQL);
+        $sentencia->execute();
+    
+        // Para MySQLi usar get_result() y fetch_assoc()
+        $resultado = $sentencia->get_result();
+        while ($fila = $resultado->fetch_assoc()) {
+            // Cambiar la clave 'idPropietario' por 'id' para consistencia
+            $fila['id'] = $fila['idPropietario'];
+            unset($fila['idPropietario']);
+            $propietarios[] = $fila;
+        }
+    
+        $sentencia->close();
+        } catch (Exception $e) {
+        throw new Exception("Error al consultar propietarios: " . $e->getMessage());
+        }
+
+         return $propietarios;
+}
+
+
+        public function eliminarPropietario($conexion, $id) {
+        if (empty($id) || $id === 'undefined') {
+        throw new Exception("ID de propietario inválido");
+        }
+    
+        return "UPDATE Propietario SET activo = 0 WHERE idPropietario = $id";
+}
+
+public function restaurar($conexion, $id) {
+    try {
+        $sentenciaSQL = "UPDATE Propietario SET activo = 1 WHERE id = ?";
+        $sentencia = $conexion->prepare($sentenciaSQL);
+        $sentencia->bindParam(1, $id);
+        
+        return $sentencia->execute();
+    } catch (PDOException $e) {
+        throw new Exception("Error al restaurar propietario: " . $e->getMessage());
+    }
+}
+
     public function eliminar() {
         return "DELETE FROM Propietario WHERE idPropietario = {$this->id}";
     }

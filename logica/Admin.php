@@ -5,6 +5,8 @@ require_once("persistencia/AdminDAO.php");
 
 class Admin extends Persona
 {
+    private $PropietariosLista;
+    private $fechaIngreso;
 
     public function __construct($id = "", $nombre = "", $apellido = "", $telefono = "", $clave = "", $correo = "")
     {
@@ -46,6 +48,18 @@ class Admin extends Persona
         return $this;
     }
 
+  public function consultarTodos() {
+    $admins = array();
+    $conexion = new Conexion();
+    $conexion->abrir();
+    
+    $adminDAO = new AdminDAO();
+    $admins = $adminDAO->consultarTodos($conexion->getConexion());
+    
+    $conexion->cerrar();
+    return $admins;
+}
+
 
     public function autenticar()
     {
@@ -85,14 +99,38 @@ class Admin extends Persona
         return $resultado; 
     }
 
-    public function eliminar()
-    {
-        $conexion = new Conexion();
-        $adminDAO = new AdminDAO($this->id);
-        $conexion->abrir();
-        $conexion->ejecutar($adminDAO->eliminar());
-        $resultado = $conexion -> getResultado();
+   public function eliminar()
+{
+    $conexion = new Conexion();
+    $adminDAO = new AdminDAO($this->id);
+    $conexion->abrir();
+    
+    try {
+        // Ejecutar la consulta SQL de eliminación (soft delete)
+        $sql = $adminDAO->eliminarAdmin($conexion->getConexion(), $this->id);
+        $conexion->ejecutar($sql);
+        
+        // Verificar si la operación fue exitosa
+        if ($conexion->getConexion()->affected_rows > 0) {
+            $conexion->cerrar();
+            return true;
+        } else {
+            $conexion->cerrar();
+            return false;
+        }
+        
+    } catch (Exception $e) {
         $conexion->cerrar();
-        return $resultado; 
+        throw new Exception("Error al eliminar administrador: " . $e->getMessage());
     }
+}
+
+    public function restaurar() {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $adminDAO = new AdminDAO();
+    $resultado = $adminDAO->restaurar($conexion->getConexion(), $this->id);
+    $conexion->cerrar();
+    return $resultado;
+}
 }
