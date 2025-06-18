@@ -36,7 +36,7 @@ $propietarioEliminar->consultar();
 
 // Obtener apartamentos del propietario a eliminar
 $apartamento = new Apartamento();
-$apartamentosAfectados = $apartamento->consultarPorPropietario($idPropietarioEliminar);
+$apartamentosAfectados = $apartamento->consultarConPropietario($idPropietarioEliminar);
 
 // Obtener todos los propietarios activos (excepto el que se va a eliminar)
 $propietario = new Propietario();
