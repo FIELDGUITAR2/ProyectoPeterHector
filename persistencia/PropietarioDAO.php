@@ -25,7 +25,7 @@ class PropietarioDAO {
     public function autenticar() {
         return "SELECT idPropietario 
                 FROM Propietario 
-                WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
+                WHERE correo = '" . $this->correo . "' AND clave = md5('" . $this->clave . "')";
     }
 
     public function consultar2() {
@@ -37,7 +37,7 @@ class PropietarioDAO {
     }
 
     public function actualizar() {
-        return "UPDATE propietario SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', telefono = '{$this->telefono}', clave = '{$this->clave}', correo = '{$this->correo}' WHERE idPropietario = {$this->id}";
+        return "update Propietario set nombre = '" . $this->nombre . "', apellido = '" . $this->apellido . "', clave = '" . $this->clave . "', telefono = '" . $this->telefono . "', correo = '" . $this->correo . "' where idPropietario = " . $this->id;
     }
 
     // MÉTODO CORREGIDO - Opción 1: Usando parámetro
@@ -126,5 +126,12 @@ public function restaurar($conexion, $id) {
     public function eliminar() {
         return "DELETE FROM Propietario WHERE idPropietario = {$this->id}";
     }
+
+    /*
+    select cu.idCuenta as ID_Cuenta, cu.cantidad as Cantidad, cu.saldoAnterior as Saldo, cu.fechaLimite as FechaLimite, pa.fechaPago as Fecha_Pago, pa.idPagos as ID_Pago, ad.nombre as Nombre_Admin, ap.nombre as Nombre_Apartamento, pro.nombre as Nombre_Propietario FROM Pagos pa INNER JOIN Cuenta cu on pa.Cuenta_idCuenta = cu.idCuenta INNER JOIN Admin ad on cu.Admin_idAdmin = ad.idAdmin INNER JOIN Apartamento ap on cu.Apartamento_idApartamento = ap.idApartamento INNER JOIN Propietario pro on ap.Propietario_idPropietario = pro.idPropietario WHERE ad.idAdmin = 1001 ORDER BY pa.idPagos;
+    */
+    /*
+        select cu.cantidad as Cantidad, est.valor as Estado, cu.fechaLimite as Fecha_Limite, cu.saldoAnterior as Saldo, ap.nombre as Nombre_Apartamento, pro.idPropietario as ID_Propietario, pro.nombre as Nombre_Propietario FROM Cuenta cu INNER JOIN EstadoPago est on cu.EstadoPago_idEstadoPago = est.idEstadoPago INNER JOIN Apartamento ap on cu.Apartamento_idApartamento = ap.idApartamento INNER JOIN Propietario pro on ap.Propietario_idPropietario = pro.idPropietario WHERE pro.idPropietario = 1;
+    */
 }
 ?>

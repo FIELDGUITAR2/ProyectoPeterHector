@@ -132,7 +132,8 @@
         public function actualizar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso);
+            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso, 
+            $this->correo);
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->actualizar());
             $resultado = $conexion->getResultado();
@@ -151,7 +152,6 @@
             return $resultado;
         }
         
-
         
         public function getPropietariosLista()
         {
