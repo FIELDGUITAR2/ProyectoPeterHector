@@ -1,5 +1,3 @@
-
-
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -48,12 +46,12 @@ $propietariosDisponibles = $propietario->consultarActivos($idPropietarioEliminar
 if (isset($_POST['procesarCambio'])) {
     $cambiosRealizados = true;
     $errores = [];
-    
+
     try {
         foreach ($apartamentosAfectados as $apt) {
             $idApartamento = $apt['idApartamento'];
             $accion = $_POST['accion_' . $idApartamento] ?? '';
-            
+
             if ($accion == 'asignar_existente') {
                 $nuevoPropietarioId = $_POST['propietario_' . $idApartamento] ?? '';
                 if (!empty($nuevoPropietarioId)) {
@@ -67,7 +65,7 @@ if (isset($_POST['procesarCambio'])) {
                 $telefono = trim($_POST['telefono_' . $idApartamento] ?? '');
                 $correo = trim($_POST['correo_' . $idApartamento] ?? '');
                 $clave = trim($_POST['clave_' . $idApartamento] ?? '');
-                
+
                 if (!empty($nombre) && !empty($apellido) && !empty($telefono) && !empty($correo) && !empty($clave)) {
                     $nuevoPropietario = new Propietario();
                     $nuevoPropietario->setNombre($nombre);
@@ -76,9 +74,9 @@ if (isset($_POST['procesarCambio'])) {
                     $nuevoPropietario->setCorreo($correo);
                     $nuevoPropietario->setClave($clave);
                     $nuevoPropietario->setFechaIngreso(date('Y-m-d'));
-                    
+
                     $nuevoPropietarioId = $nuevoPropietario->insertar();
-                    
+
                     if ($nuevoPropietarioId) {
                         $apartamentoObj = new Apartamento($idApartamento);
                         $apartamentoObj->cambiarPropietario($nuevoPropietarioId);
@@ -96,23 +94,21 @@ if (isset($_POST['procesarCambio'])) {
                 $apartamentoObj->cambiarPropietario(null);
             }
         }
-        
+
         if ($cambiosRealizados && empty($errores)) {
             // Eliminar el propietario original
             $propietarioEliminar->eliminar();
             $mensaje = "Propietario eliminado y cambios realizados correctamente.";
-            
+
             // Redireccionar después de 3 segundos
             echo "<script>
             setTimeout(function() {
             window.location.href = 'index.php?pid=" . base64_encode("presentacion/cuenta/consultarPropietarios.php") . "';
             }, 3000);
             </script>";
-
         } else {
             $mensajeError = "Algunos cambios no se pudieron realizar: " . implode(", ", $errores);
         }
-        
     } catch (Exception $e) {
         $mensajeError = "Error al procesar los cambios: " . $e->getMessage();
     }
@@ -150,7 +146,7 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                     </div>
                 <?php } else { ?>
                     <div class="alert alert-warning">
-                        <strong>Atención:</strong> Este propietario tiene <?php echo count($apartamentosAfectados); ?> apartamento(s) asignado(s). 
+                        <strong>Atención:</strong> Este propietario tiene <?php echo count($apartamentosAfectados); ?> apartamento(s) asignado(s).
                         Debe decidir qué hacer con cada uno antes de eliminarlo.
                     </div>
 
@@ -158,7 +154,7 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                         <?php foreach ($apartamentosAfectados as $apt) { ?>
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <h5>Apartamento: <?php echo htmlspecialchars($apt['nombre']); ?> 
+                                    <h5>Apartamento: <?php echo htmlspecialchars($apt['nombre']); ?>
                                         <small class="text-muted">(<?php echo $apt['metrosCuadrados']; ?> m²)</small>
                                     </h5>
                                 </div>
@@ -181,7 +177,7 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                                                     <option value="">Seleccione un propietario</option>
                                                     <?php foreach ($propietariosDisponibles as $prop) { ?>
                                                         <option value="<?php echo $prop['idPropietario']; ?>">
-                                                            <?php echo htmlspecialchars($prop['nombre'] . " " . $prop['apellido'] . " - " . $prop['telefono']); ?>
+                                                            <?php echo htmlspecialchars($prop['nombre'] . " " . $prop['apellido']); ?>
                                                         </option>
                                                     <?php } ?>
                                                 </select>
@@ -223,13 +219,13 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                                     </div>
                                 </div>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
 
-                                <div class="d-flex justify-content-center mt-4">
-                                <button type="submit" name="procesarCambio" class="btn btn-warning me-2">
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="submit" name="procesarCambio" class="btn btn-warning me-2">
                                 <i class="fas fa-exchange-alt"></i> Procesar Cambios y Eliminar Propietario
-                                </button>
-                                <a href="index.php?pid=<?php echo base64_encode('presentacion/usuario/consultarPropietarios.php'); ?>" class="btn btn-secondary">
+                            </button>
+                            <a href="index.php?pid=<?php echo base64_encode('presentacion/usuario/consultarPropietarios.php'); ?>" class="btn btn-secondary">
                                 <i class="fas fa-times"></i> Cancelar
                             </a>
                         </div>
@@ -247,12 +243,12 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                 select.addEventListener('change', function() {
                     const apartamento = this.dataset.apartamento;
                     const valor = this.value;
-                    
+
                     // Ocultar todas las opciones de detalle para este apartamento
                     document.querySelectorAll(`[id^="existente_${apartamento}"], [id^="nuevo_${apartamento}"], [id^="sin_${apartamento}"]`).forEach(function(div) {
                         div.style.display = 'none';
                     });
-                    
+
                     // Mostrar la opción seleccionada
                     if (valor === 'asignar_existente') {
                         document.getElementById(`existente_${apartamento}`).style.display = 'block';
