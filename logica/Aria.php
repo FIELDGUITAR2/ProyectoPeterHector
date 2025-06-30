@@ -25,4 +25,8 @@ class Area {
     public function setValorArriendo($valorArriendo) {
         $this->valorArriendo = $valorArriendo;
     }
+
+    public function consultar() {
+        return "SELECT idArea, metrosCuadrados, valorArriendo FROM Area WHERE idArea = '" . $this->id . "'";
+    }
 }

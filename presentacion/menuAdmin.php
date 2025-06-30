@@ -36,6 +36,7 @@ $admin->consultar();
 		</a>
 		<ul class="dropdown-menu">
 			<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/agregarUsuario.php")?>">Agregar Usuario</a></li>
+			<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/cambiarPropietario.php")?>">Cambiar Propietario</a></li>
 			<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/eliminarUsuario.php")?>">Eliminar Usuario</a></li>
 			<li><hr class="dropdown-divider"></li>
 			<li><a class="dropdown-item" href="?pid=<?php echo base64_encode("presentacion/usuario/editarUsuario.php")?>">Editar Perfil</a></li>

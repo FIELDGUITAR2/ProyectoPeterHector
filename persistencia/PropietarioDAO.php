@@ -77,10 +77,10 @@ class PropietarioDAO {
         $propietarios = array();
 
         try {
-        $sentenciaSQL = "SELECT idPropietario, nombre, apellido, telefono, correo, fechaIngreso 
-                    FROM Propietario 
-                    WHERE activo = 1 
-                    ORDER BY nombre, apellido";
+        $sentenciaSQL = "SELECT idPropietario, nombre, apellido, correo, telefono, activo AS estado, fechaIngreso
+                 FROM Propietario
+                 WHERE activo = 1 
+                 ORDER BY nombre, apellido";
     
         $sentencia = $conexion->prepare($sentenciaSQL);
         $sentencia->execute();
@@ -127,11 +127,6 @@ public function restaurar($conexion, $id) {
         return "DELETE FROM Propietario WHERE idPropietario = {$this->id}";
     }
 
-    /*
-    select cu.idCuenta as ID_Cuenta, cu.cantidad as Cantidad, cu.saldoAnterior as Saldo, cu.fechaLimite as FechaLimite, pa.fechaPago as Fecha_Pago, pa.idPagos as ID_Pago, ad.nombre as Nombre_Admin, ap.nombre as Nombre_Apartamento, pro.nombre as Nombre_Propietario FROM Pagos pa INNER JOIN Cuenta cu on pa.Cuenta_idCuenta = cu.idCuenta INNER JOIN Admin ad on cu.Admin_idAdmin = ad.idAdmin INNER JOIN Apartamento ap on cu.Apartamento_idApartamento = ap.idApartamento INNER JOIN Propietario pro on ap.Propietario_idPropietario = pro.idPropietario WHERE ad.idAdmin = 1001 ORDER BY pa.idPagos;
-    */
-    /*
-        select cu.cantidad as Cantidad, est.valor as Estado, cu.fechaLimite as Fecha_Limite, cu.saldoAnterior as Saldo, ap.nombre as Nombre_Apartamento, pro.idPropietario as ID_Propietario, pro.nombre as Nombre_Propietario FROM Cuenta cu INNER JOIN EstadoPago est on cu.EstadoPago_idEstadoPago = est.idEstadoPago INNER JOIN Apartamento ap on cu.Apartamento_idApartamento = ap.idApartamento INNER JOIN Propietario pro on ap.Propietario_idPropietario = pro.idPropietario WHERE pro.idPropietario = 1;
-    */
+
 }
 ?>

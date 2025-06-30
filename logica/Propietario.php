@@ -60,85 +60,139 @@
             $conexion->cerrar();
         }
 
-        public function consultarTodos() {
-        $propietarios = array();
-        $conexion = new Conexion();
-        $conexion->abrir();
-    
-        $propietarioDAO = new PropietarioDAO();
-        $propietarios = $propietarioDAO->consultarTodos($conexion->getConexion());
-    
-        $conexion->cerrar();
-        return $propietarios;
+        public function consultarTodos()
+        {
+            $propietarios = array();
+            $conexion = new Conexion();
+            $conexion->abrir();
+
+            $propietarioDAO = new PropietarioDAO();
+            $propietarios = $propietarioDAO->consultarTodos($conexion->getConexion());
+
+            $conexion->cerrar();
+            return $propietarios;
         }
 
-        public function consultarActivos($excluirId = null) {
-        $conexion = new Conexion();
-        $conexion->abrir();
+        public function consultarActivos($excluirId = null)
+        {
+            $conexion = new Conexion();
+            $conexion->abrir();
 
-        $query = "SELECT idPropietario, nombre, apellido FROM Propietario WHERE estado = 1";
-        if ($excluirId) {
-        $query .= " AND idPropietario != '$excluirId'";
+            $query = "SELECT idPropietario, nombre, apellido FROM Propietario WHERE activo = 1";
+            if ($excluirId) {
+                $query .= " AND idPropietario != '$excluirId'";
+            }
+
+            $conexion->ejecutar($query);
+
+            $propietarios = [];
+            while (($registro = $conexion->extraer()) !== null) {
+                if (isset($registro[0], $registro[1], $registro[2])) {
+                    $propietarios[] = [
+                        'id' => $registro[0],
+                        'nombre' => $registro[1],
+                        'apellido' => $registro[2]
+                    ];
+                }
+            }
+
+            $conexion->cerrar();
+            return $propietarios;
         }
 
-        $resultado = $conexion->ejecutar($query);
 
-        $propietarios = [];
-        while ($registro = $conexion->extraer()) {
-        $propietarios[] = [
-            'id' => $registro[0],
-            'nombre' => $registro[1],
-            'apellido' => $registro[2]
-        ];
-        }
-
-        $conexion->cerrar();
-        return $propietarios;
-        }
-
-           public function eliminar()
+        public function eliminar()
         {
             $conexion = new Conexion();
             $propietarioDAO = new PropietarioDAO($this->id);
             $conexion->abrir();
-    
-        try {
-        
-            $sql = $propietarioDAO->eliminarPropietario($conexion->getConexion(), $this->id);
-            $conexion->ejecutar($sql);
-        
-        // Verificar si la operación fue exitosa
-            if ($conexion->getConexion()->affected_rows > 0) {
-            $conexion->cerrar();
-            return true;
-            } else {
-            $conexion->cerrar();
-            return false;
+
+            try {
+
+                $sql = $propietarioDAO->eliminarPropietario($conexion->getConexion(), $this->id);
+                $conexion->ejecutar($sql);
+
+                // Verificar si la operación fue exitosa
+                if ($conexion->getConexion()->affected_rows > 0) {
+                    $conexion->cerrar();
+                    return true;
+                } else {
+                    $conexion->cerrar();
+                    return false;
+                }
+            } catch (Exception $e) {
+                $conexion->cerrar();
+                throw new Exception("Error al eliminar propietario: " . $e->getMessage());
             }
-        
-        } catch (Exception $e) {
-        $conexion->cerrar();
-        throw new Exception("Error al eliminar propietario: " . $e->getMessage());
-        }      
-}
+        }
 
 
-        public function restaurar() {
-        $conexion = new Conexion();
-        $conexion->abrir();
-    
-        $propietarioDAO = new PropietarioDAO();
-        $resultado = $propietarioDAO->restaurar($conexion->getConexion(), $this->id);
-    
-        $conexion->cerrar();
-        return $resultado;
-}
+        public function restaurar()
+        {
+            $conexion = new Conexion();
+            $conexion->abrir();
+
+            $propietarioDAO = new PropietarioDAO();
+            $resultado = $propietarioDAO->restaurar($conexion->getConexion(), $this->id);
+
+            $conexion->cerrar();
+            return $resultado;
+        }
+
+        public function reasignarApartamentosAPropietarioActivo()
+        {
+            $conexion = new Conexion();
+            $conexion->abrir();
+
+            // Buscar apartamentos del propietario actual
+            $consulta = "SELECT idApartamento FROM Apartamento WHERE Propietario_idPropietario = $this->id";
+            $conexion->ejecutar($consulta);
+
+            $apartamentos = [];
+            while ($registro = $conexion->extraer()) {
+                $apartamentos[] = $registro[0];
+            }
+
+            if (empty($apartamentos)) {
+                $conexion->cerrar();
+                return "Este propietario no tiene apartamentos asignados.";
+            }
+
+            // Buscar nuevo propietario activo distinto al actual
+            $nuevoPropQuery = "SELECT idPropietario FROM Propietario WHERE activo = 1 AND idPropietario != $this->id LIMIT 1";
+            $conexion->ejecutar($nuevoPropQuery);
+            $nuevoPropietario = $conexion->extraer();
+
+            if (!$nuevoPropietario) {
+                $conexion->cerrar();
+                return "No hay otro propietario activo disponible.";
+            }
+
+            $nuevoId = $nuevoPropietario[0];
+
+            // Reasignar los apartamentos al nuevo propietario
+            foreach ($apartamentos as $idApartamento) {
+                $updateQuery = "UPDATE Apartamento SET Propietario_idPropietario = $nuevoId WHERE idApartamento = $idApartamento";
+                $conexion->ejecutar($updateQuery);
+            }
+
+            $conexion->cerrar();
+            return "Reasignación exitosa al propietario con ID: $nuevoId.";
+        }
+
 
         public function autenticar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO("", "", "", "", $this->clave, "",
-            $this->correo);
+            $propietarioDAO = new PropietarioDAO(
+                "",
+                "",
+                "",
+                "",
+                $this->clave,
+                "",
+                $this->correo
+            );
 
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->autenticar());
@@ -156,8 +210,15 @@
         public function actualizar()
         {
             $conexion = new Conexion();
-            $propietarioDAO = new PropietarioDAO($this->id, $this->nombre, $this->apellido, $this->telefono, $this->clave, $this->fechaIngreso, 
-            $this->correo);
+            $propietarioDAO = new PropietarioDAO(
+                $this->id,
+                $this->nombre,
+                $this->apellido,
+                $this->telefono,
+                $this->clave,
+                $this->fechaIngreso,
+                $this->correo
+            );
             $conexion->abrir();
             $conexion->ejecutar($propietarioDAO->actualizar());
             $resultado = $conexion->getResultado();
@@ -175,17 +236,18 @@
             $conexion->cerrar();
             return $resultado;
         }
-        
-        
+
+
         public function getPropietariosLista()
         {
             return $this->PropietariosLista;
         }
 
-        public function obtenerPropietariosConApartamentos() {
+        public function obtenerPropietariosConApartamentos()
+        {
             return "SELECT p.idPropietario, p.nombre, p.apellido, p.telefono, p.correo, a.nombre AS apartamento
                         FROM Propietario p
                         LEFT JOIN Apartamento a ON p.idPropietario = a.Propietario_idPropietario
                         ORDER BY p.idPropietario, a.nombre";
-            }
+        }
     }

@@ -1,23 +1,4 @@
 
-if (isset($_GET['usuario_inactivo'])) {
-    $usuarioInactivo = $_GET['usuario_inactivo'];
-
-    // Buscar todos los apartamentos donde era propietario
-    $consulta = "SELECT * FROM apartamentos WHERE propietario_id = $usuarioInactivo";
-    $resultado = mysqli_query($conexion, $consulta);
-
-    while ($row = mysqli_fetch_assoc($resultado)) {
-        $idApartamento = $row['id_apartamento'];
-
-        // Buscar nuevo propietario activo
-        $nuevoProp = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT id_usuario FROM usuarios WHERE estado = 1 LIMIT 1"));
-        $nuevoPropId = $nuevoProp['id_usuario'];
-
-        mysqli_query($conexion, "UPDATE apartamentos SET propietario_id = $nuevoPropId WHERE id_apartamento = $idApartamento");
-    }
-
-    echo "<script>alert('El usuario fue deshabilitado y los apartamentos fueron reasignados.');</script>";
-}
 
 <?php
 if (session_status() == PHP_SESSION_NONE) {
@@ -45,7 +26,7 @@ require_once("logica/Propietario.php");
 
 // Verificar que se recibió el ID del propietario a eliminar
 if (!isset($_GET['idPropietario']) || empty($_GET['idPropietario'])) {
-    header("Location: consultarPropietarios.php");
+    header("Location: index.php?pid=" . base64_encode("presentacion/cuenta/consultarPropietarios.php"));
     exit();
 }
 
@@ -123,10 +104,11 @@ if (isset($_POST['procesarCambio'])) {
             
             // Redireccionar después de 3 segundos
             echo "<script>
-                setTimeout(function() {
-                    window.location.href = 'consultarPropietarios.php';
-                }, 3000);
+            setTimeout(function() {
+            window.location.href = 'index.php?pid=" . base64_encode("presentacion/cuenta/consultarPropietarios.php") . "';
+            }, 3000);
             </script>";
+
         } else {
             $mensajeError = "Algunos cambios no se pudieron realizar: " . implode(", ", $errores);
         }
@@ -241,16 +223,17 @@ include("presentacion/menu" . ucfirst($_SESSION["rol"]) . ".php");
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+                            <?php } ?>
 
-                        <div class="d-flex justify-content-center mt-4">
-                            <button type="submit" name="procesarCambio" class="btn btn-warning me-2">
+                                <div class="d-flex justify-content-center mt-4">
+                                <button type="submit" name="procesarCambio" class="btn btn-warning me-2">
                                 <i class="fas fa-exchange-alt"></i> Procesar Cambios y Eliminar Propietario
-                            </button>
-                            <a href="consultarPropietarios.php" class="btn btn-secondary">
+                                </button>
+                                <a href="index.php?pid=<?php echo base64_encode('presentacion/usuario/consultarPropietarios.php'); ?>" class="btn btn-secondary">
                                 <i class="fas fa-times"></i> Cancelar
                             </a>
                         </div>
+
                     </form>
                 <?php } ?>
             </div>

@@ -28,7 +28,9 @@ $paginas_con_autenticacion = array(
     "presentacion/usuario/eliminarUsuario.php",
     "presentacion/cuenta/ConsultarCuentaProp.php",
     "presentacion/cuenta/pagarPropietario.php",
-    "presentacion/pdf.php"
+    "presentacion/pdf.php",
+    "presentacion/usuario/cambiarPropietario.php",
+    "presentacion/cuenta/consultarPropietarios.php"
 );
 ?>
 
