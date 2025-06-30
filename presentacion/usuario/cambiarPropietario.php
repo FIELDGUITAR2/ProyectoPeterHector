@@ -1,3 +1,24 @@
+
+if (isset($_GET['usuario_inactivo'])) {
+    $usuarioInactivo = $_GET['usuario_inactivo'];
+
+    // Buscar todos los apartamentos donde era propietario
+    $consulta = "SELECT * FROM apartamentos WHERE propietario_id = $usuarioInactivo";
+    $resultado = mysqli_query($conexion, $consulta);
+
+    while ($row = mysqli_fetch_assoc($resultado)) {
+        $idApartamento = $row['id_apartamento'];
+
+        // Buscar nuevo propietario activo
+        $nuevoProp = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT id_usuario FROM usuarios WHERE estado = 1 LIMIT 1"));
+        $nuevoPropId = $nuevoProp['id_usuario'];
+
+        mysqli_query($conexion, "UPDATE apartamentos SET propietario_id = $nuevoPropId WHERE id_apartamento = $idApartamento");
+    }
+
+    echo "<script>alert('El usuario fue deshabilitado y los apartamentos fueron reasignados.');</script>";
+}
+
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

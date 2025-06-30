@@ -70,7 +70,31 @@
     
         $conexion->cerrar();
         return $propietarios;
-}
+        }
+
+        public function consultarActivos($excluirId = null) {
+        $conexion = new Conexion();
+        $conexion->abrir();
+
+        $query = "SELECT idPropietario, nombre, apellido FROM Propietario WHERE estado = 1";
+        if ($excluirId) {
+        $query .= " AND idPropietario != '$excluirId'";
+        }
+
+        $resultado = $conexion->ejecutar($query);
+
+        $propietarios = [];
+        while ($registro = $conexion->extraer()) {
+        $propietarios[] = [
+            'id' => $registro[0],
+            'nombre' => $registro[1],
+            'apellido' => $registro[2]
+        ];
+        }
+
+        $conexion->cerrar();
+        return $propietarios;
+        }
 
            public function eliminar()
         {

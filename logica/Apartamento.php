@@ -109,4 +109,55 @@ class Apartamento
         
         
     }
+
+    public function cambiarPropietario($nuevoPropietarioId) {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $conexion->ejecutar("UPDATE Apartamento SET Propietario_idPropietario = " . ($nuevoPropietarioId ? "'$nuevoPropietarioId'" : "NULL") . " WHERE idApartamento = '$this->id'");
+    $conexion->cerrar();
+    }
+
+    public function consultarConPropietario($idPropietario) {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $resultado = $conexion->ejecutar("SELECT idApartamento, nombre FROM Apartamento WHERE Propietario_idPropietario = '$idPropietario'");
+    
+    $apartamentos = [];
+    while ($registro = $conexion->extraer()) {
+        $apartamentos[] = [
+            'idApartamento' => $registro[0],
+            'nombre' => $registro[1]
+        ];
+    }
+
+    $conexion->cerrar();
+    return $apartamentos;
+    }
+    
+    public function consultarActivos($excluirId = null) {
+    $conexion = new Conexion();
+    $conexion->abrir();
+
+    $query = "SELECT idPropietario, nombre, apellido FROM Propietario WHERE estado = 1";
+    if ($excluirId) {
+        $query .= " AND idPropietario != '$excluirId'";
+    }
+
+    $resultado = $conexion->ejecutar($query);
+
+    $propietarios = [];
+    while ($registro = $conexion->extraer()) {
+        $propietarios[] = [
+            'id' => $registro[0],
+            'nombre' => $registro[1],
+            'apellido' => $registro[2]
+        ];
+    }
+
+    $conexion->cerrar();
+    return $propietarios;
+    }
+
+
+
 }
