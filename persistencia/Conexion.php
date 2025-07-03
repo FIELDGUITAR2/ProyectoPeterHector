@@ -12,7 +12,7 @@ class Conexion
 
     public function abrir()
     {
-        $this->conexion = new mysqli("localhost", "root", "", "Conjuntos");
+        $this->conexion = new mysqli("localhost", "root", "", "conjuntos");
     }
 
     public function cerrar()
