@@ -1,32 +1,36 @@
 <?php
-
-if (isset($_GET["sesion"])){
+if (isset($_GET["sesion"])) {
     if ($_GET["sesion"] == "false") {
         session_destroy();
     }
 }
+
 $error = false;
+
 if (isset($_POST["autenticar"])) {
-    $nombre = $_POST["nombre"];
+    $correo = $_POST["correo"];
     $clave = $_POST["clave"];
 
-    $admin = new Admin("", "", "","", $clave,$nombre);
+    $admin = new Admin("", "", "", "", $clave, $correo);
     if ($admin->autenticar()) {
         $_SESSION["id"] = $admin->getId();
         $_SESSION["rol"] = "admin";
         header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
+        exit();
     } else {
-        $propietario = new Propietario("", "", "","", $clave, "",
-        $nombre);
+        $propietario = new Propietario("", "", "", "", $clave, "", $correo);
         if ($propietario->autenticar()) {
             $_SESSION["id"] = $propietario->getId();
             $_SESSION["rol"] = "propietario";
             header("Location: ?pid=" . base64_encode("presentacion/sesionPropietario.php"));
+            exit();
+        } else {
             $error = true;
-        } 
+        }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -57,7 +61,7 @@ if (isset($_POST["autenticar"])) {
                         <h3 class="mb-4 text-center">Iniciar Sesión</h3>
                             <form action="?pid=<?php echo base64_encode("presentacion/Autenticar.php") ?>" method="post">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="nombre" placeholder="nombre" required>
+                                    <input type="text" class="form-control" name="correo" placeholder="correo" required>
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" class="form-control" name="clave" placeholder="Clave" required>
