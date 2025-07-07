@@ -1,5 +1,6 @@
 <?php
-require 'librerias/vendor/autoload.php';
+require_once __DIR__ . '/../librerias/vendor/autoload.php';
+
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
 
