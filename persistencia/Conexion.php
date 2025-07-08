@@ -5,16 +5,22 @@ class Conexion
     private $conexion;
     private $resultado;
 
-
-
     public function extraer()
     {
-        if ($this->resultado) { 
-            return $this->resultado->fetch_row(); 
+        if ($this->resultado) {
+            return $this->resultado->fetch_assoc(); // ✅ Asociativo
         }
         return null;
     }
 
+    public function registro()
+    {
+        if (!$this->resultado) {
+            return null;
+        }
+
+        return $this->resultado->fetch_assoc(); // ✅ Asociativo
+    }
 
     public function abrir()
     {
@@ -35,28 +41,15 @@ class Conexion
         }
     }
 
-
-    public function registro()
-    {
-        if (!$this->resultado) {
-            return null;
-        }
-
-        return $this->resultado->fetch_row();
-    }
-
-
     public function filas()
     {
         if (!$this->resultado) {
-
             return 0;
         }
 
         if ($this->resultado instanceof mysqli_result) {
             return $this->resultado->num_rows;
         }
-
 
         return 0;
     }
@@ -71,3 +64,4 @@ class Conexion
         return $this->conexion;
     }
 }
+?>
