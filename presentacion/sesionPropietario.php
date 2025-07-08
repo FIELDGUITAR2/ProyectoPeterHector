@@ -6,7 +6,6 @@ if ($_SESSION["rol"] != "propietario") {
 <body>
 <?php 
 include ("presentacion/Extremos/Cabeza.php");
-include ("presentacion/Extremos/pie.php");
 include ("presentacion/menuPropietario.php");
 include ("presentacion/inicio.php");
 ?>
