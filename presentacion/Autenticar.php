@@ -12,22 +12,23 @@ if (isset($_POST["autenticar"])) {
     $clave = $_POST["clave"];
 
     $admin = new Admin("", "", "", "", $clave, $correo);
-    if ($admin->autenticar()) {
-        $_SESSION["id"] = $admin->getId();
-        $_SESSION["rol"] = "admin";
-        header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
+if ($admin->autenticar()) {
+    $_SESSION["id"] = $admin->getId();
+    $_SESSION["rol"] = "admin";
+    header("Location: ?pid=" . base64_encode("presentacion/sesionAdmin.php"));
+    exit();
+} else {
+    $propietario = new Propietario("", "", "", "", $clave, "", $correo);
+    if ($propietario->autenticar($correo, $clave)) { // ✅ Aquí el cambio
+        $_SESSION["id"] = $propietario->getId();
+        $_SESSION["rol"] = "propietario";
+        header("Location: ?pid=" . base64_encode("presentacion/sesionPropietario.php"));
         exit();
     } else {
-        $propietario = new Propietario("", "", "", "", $clave, "", $correo);
-        if ($propietario->autenticar()) {
-            $_SESSION["id"] = $propietario->getId();
-            $_SESSION["rol"] = "propietario";
-            header("Location: ?pid=" . base64_encode("presentacion/sesionPropietario.php"));
-            exit();
-        } else {
-            $error = true;
-        }
+        $error = true;
     }
+}
+
 }
 ?>
 
