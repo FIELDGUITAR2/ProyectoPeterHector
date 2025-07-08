@@ -31,6 +31,11 @@ class PropietarioDAO {
                 FROM Propietario WHERE idPropietario = '{$this->id}'";
     }
 
+    public function consultar2()
+{
+    return "SELECT idPropietario, nombre, apellido, fechaIngreso FROM Propietario";
+}
+
     public function actualizar() {
         return "UPDATE Propietario 
                 SET nombre = '{$this->nombre}', apellido = '{$this->apellido}', clave = '{$this->clave}', 
