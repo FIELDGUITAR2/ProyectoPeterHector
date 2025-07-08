@@ -4,10 +4,16 @@ class Conexion
 {
     private $conexion;
     private $resultado;
+
+
+
     public function extraer()
-{
-    return $this->resultado ? $this->resultado->fetch_assoc() : null;
-}
+    {
+        if ($this->resultado) { 
+            return $this->resultado->fetch_row(); 
+        }
+        return null;
+    }
 
 
     public function abrir()
@@ -43,7 +49,7 @@ class Conexion
     public function filas()
     {
         if (!$this->resultado) {
-            
+
             return 0;
         }
 
@@ -51,7 +57,7 @@ class Conexion
             return $this->resultado->num_rows;
         }
 
-        
+
         return 0;
     }
 

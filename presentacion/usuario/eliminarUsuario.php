@@ -58,18 +58,28 @@ if (isset($_POST['eliminarUsuario'])) {
                     $admin = new Admin($idUsuario);
                     $resultado = $admin->eliminar(); // Esto debería hacer soft delete
                 } elseif ($tipoUsuario == "propietario") {
-                    $propietario = new Propietario($idUsuario);
-                    $resultado = $propietario->eliminar(); // Esto debería hacer soft delete
+                $propietario = new Propietario($idUsuario);
+                $resultado = $propietario->eliminar(); // Esto debería hacer soft delete
+
+                if ($resultado) {
+                // Verificar si tenía apartamentos
+                $apartamento = new Apartamento();
+                $apartamentosAsignados = $apartamento->consultarConPropietario($idUsuario);
+
+                if (!empty($apartamentosAsignados)) {
+                // Redirigir a cambio de propietario
+                header("Location: index.php?pid=" . base64_encode("presentacion/usuario/cambiarPropietario.php") . "&usuario_inactivo=$idUsuario");
+                exit();
+                }
+
+                $mensaje = "Usuario eliminado correctamente.";
+                $administradores = $adminObj->consultarTodos();
+                $propietarios = $propietarioObj->consultarTodos();
+                } else {
+                $mensajeError = "Error al eliminar el usuario.";
+                }
                 }
                 
-                if ($resultado) {
-                    $mensaje = "Usuario eliminado correctamente.";
-                    // Recargar listas después de eliminar
-                    $administradores = $adminObj->consultarTodos();
-                    $propietarios = $propietarioObj->consultarTodos();
-                } else {
-                    $mensajeError = "Error al eliminar el usuario.";
-                }
             } catch (Exception $e) {
                 $mensajeError = "Error al eliminar el usuario: " . $e->getMessage();
             }
