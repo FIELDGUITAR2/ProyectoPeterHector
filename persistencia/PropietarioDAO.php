@@ -22,11 +22,12 @@ class PropietarioDAO {
         return $this->id;
     }
 
-    public function autenticar() {
+    public function autenticar($correo, $clave) {
     return "SELECT idPropietario 
             FROM Propietario 
-            WHERE correo = '" . $this->correo . "' AND clave = '" . $this->clave . "'";
-    }
+            WHERE correo = '" . $correo . "' AND clave = '" . $clave . "'";
+}
+
 
 
     public function consultar2() {

@@ -1,7 +1,10 @@
 <?php 
+
 $id = $_SESSION["id"];
 $propietario = new Propietario($id);
 $propietario->consultar();
+include ("presentacion/Extremos/Cabeza.php");
+include ("presentacion/Extremos/pie.php");
 ?>
 <div class="container">
 	<nav class="navbar navbar-expand-lg " style=" background-color: #b6fff6;">
